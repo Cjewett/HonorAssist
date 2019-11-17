@@ -46,7 +46,7 @@ end
 
 -- Update start time and remove data that has fallen out of the previous hour window.
 function HonorAssist:RecalculateHourlyData()
-	startTimeEpoch = HonorAssist:GetPreviousHourTimeEpoch()
+	startTimeEpoch = 1574013980
 	local deleteData = {}
 
 	-- Inefficient but I'm sleepy.
@@ -63,7 +63,7 @@ function HonorAssist:RecalculateHourlyData()
 	end
 
 	-- Goes thorugh list the second time and sets those keys to nil to remove from table.
-	for timeKilledEpoch, _ in pairs(deleteData) do
+	for _, timeKilledEpoch in pairs(deleteData) do
 		hourlyData[timeKilledEpoch] = nil
 	end
 

@@ -22,6 +22,10 @@ function HonorAssist:ProcessPlayerEnteringWorld()
 		HonorAssistLogging = false
 	end
 
+	HonorAssist:Initialize()
+end
+
+function HonorAssist:Initialize()
 	-- Initialize the values for all services first.
 	HonorAssist:LoadDatabaseSettings()
 	HonorAssist:LoadDailySettings()
@@ -29,6 +33,7 @@ function HonorAssist:ProcessPlayerEnteringWorld()
 	HonorAssist:LoadTrackerUiSettings()
 
 	-- Push data into all of the services from the master database.
+	-- 'All' currently includes HonorAssistDailyCalculator and HonorAssistHourlyCalculator.
 	HonorAssist:LoadDataSinceDateTimeUtc(HonorAssist:GetDailyStartTimeEpoch(), HonorAssist:GetHourlyStartTimeEpoch())
 end
 
@@ -50,11 +55,23 @@ function HonorAssist:OnUpdateTimer(timeSinceLastUpdate)
 
 	self.timeSinceLastUpdate = (self.timeSinceLastUpdate or 0) + timeSinceLastUpdate;
 
-	-- Update hourly calculator every minute.
-	if (self.timeSinceLastUpdate >= 60) then
-		self.timeSinceLastUpdate = 0
-		HonorAssist:RecalculateHourlyData()
+		-- Update hourly calculator every minute.
+	if (self.timeSinceLastUpdate < 60) then
+		return
 	end
+
+	self.timeSinceLastUpdate = 0
+
+	-- Check to see if daily data needs to be reset
+	if (HonorAssist:GetHonorDayStartTimeEpoch() ~= HonorAssist:GetDailyStartTimeEpoch()) then
+		-- Just reinitialize everything for now. Wanted a quick solution before committing to anything. Hard to test without the daily resets actually working right now but 
+		-- I'm fairly certain this works correctly.
+		HonorAssist:Initialize()
+		return
+	end
+
+	-- Recalculate hourly data
+	HonorAssist:RecalculateHourlyData()
 end
 
 SLASH_HONORASSIST1 = "/honorassist"
