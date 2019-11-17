@@ -1,7 +1,7 @@
 ## Interface: 11302
 ## Title: HonorAssist
 ## Author: Eulav
-## Version: 0.1
+## Version: 0.2
 ## SavedVariablesPerCharacter: HonorAssistData, HonorAssistLogging, HonorAssistTrackerFramePositionX, HonorAssistTrackerFramePositionY
 
 HonorAssist.lua
