@@ -10,3 +10,4 @@ HonorAssistDatabase.lua
 HonorAssistDailyCalculator.lua
 HonorAssistHourlyCalculator.lua
 HonorAssistTrackerUi.lua
+HonorAssistToolTip.lua

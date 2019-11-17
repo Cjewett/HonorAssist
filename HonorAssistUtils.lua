@@ -29,11 +29,17 @@ function HonorAssist:CalculateRealisticHonor(timesKilled, estimatedHonorGained)
 		return 0, 0
 	end
 
-	local percentage = 1 - (0.25 * (timesKilled - 1))
+	local percentage = 1 - (0.25 * timesKilled)
 	local realisticHonor = estimatedHonorGained * percentage
 	return percentage, realisticHonor
 end
 
 function HonorAssist:Round(num, numDecimalPlaces)
 	return tonumber(string.format("%." .. (numDecimalPlaces or 0) .. "f", num))
+end
+
+function HonorAssist:GetPlayerDailyKillCount(playerName)
+	local dailyTotalKills = HonorAssist:GetTotalKillsDailyDatabase(playerName)
+	local totalKills = HonorAssist:GetTotalKillsMasterDatabase(playerName)
+	return dailyTotalKills, totalKills
 end

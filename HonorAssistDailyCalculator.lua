@@ -16,7 +16,7 @@ end
 
 function HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, printResult)
 	dailyData = HonorAssist:AddToDatabase(dailyData, playerKilled, estimatedHonorGained)
-	local timesKilled = #dailyData[playerKilled]
+	local timesKilled = #dailyData[playerKilled] -1
 	local percentage, realisticHonor = HonorAssist:CalculateRealisticHonor(timesKilled, estimatedHonorGained)
 
 	totalHonor = totalHonor + realisticHonor
@@ -28,6 +28,13 @@ function HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, 
 	HonorAssist:UpdateDailyTrackerAverage(totalKills, totalHonor)
 
 	if printResult then
-		print('Realistic Honor: You have killed ' .. playerKilled .. ' ' .. timesKilled .. ' times. This kill granted ' .. percentage * 100 .. '% value for ' .. realisticHonor .. ' honor.')
+		print('Realistic Honor: You have killed ' .. playerKilled .. ' ' .. timesKilled + 1 .. ' times. This kill granted ' .. percentage * 100 .. '% value for ' .. realisticHonor .. ' honor.')
 	end
+end
+
+function HonorAssist:GetTotalKillsDailyDatabase(playerName)
+	if HonorAssist:HasBeenKilled(dailyData, playerName) == false then
+		return 0
+	end
+		return table.getn(dailyData[playerName])
 end
