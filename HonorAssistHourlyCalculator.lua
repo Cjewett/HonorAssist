@@ -46,7 +46,7 @@ end
 
 -- Update start time and remove data that has fallen out of the previous hour window.
 function HonorAssist:RecalculateHourlyData()
-	startTimeEpoch = 1574013980
+	startTimeEpoch = HonorAssist:GetPreviousHourTimeEpoch()
 	local deleteData = {}
 
 	-- Inefficient but I'm sleepy.
