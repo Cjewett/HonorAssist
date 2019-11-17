@@ -85,5 +85,5 @@ function HonorAssist:UpdateDailyTrackerAverage(kills, honor)
 end
 
 function HonorAssist:UpdateHourlyHonor(hourlyHonor)
-	HonorAssist.avgHonorPerHour:SetText(hourlyHonor .. ' honor/hour')
+	HonorAssist.avgHonorPerHour:SetText(HonorAssist:Round(hourlyHonor, 2) .. ' honor/hour')
 end

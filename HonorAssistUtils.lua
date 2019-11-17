@@ -5,11 +5,11 @@ function HonorAssist:GetCurrentTimeUtc()
 	return '' .. date("!%x") .. ' ' .. date("!%X")
 end
 
-function HonorAssist:GetLastHourTimeUtc()
-	return time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = date("!%H") - 1, min = date("!%M"), sec = date("!%S")})
+function HonorAssist:GetPreviousHourTimeEpoch()
+	return time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = date("!%H"), min = date("!%M"), sec = date("!%S")}) - (60 * 60)
 end
 
-function HonorAssist:GetHonorDayStartTimeUtc()
+function HonorAssist:GetHonorDayStartTimeEpoch()
 	local todaysResetTimeUtc = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = 19, min = 0, sec = 0})
 	local currentTimeThresholdUtc = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = date("!%H"), min = date("!%M"), sec = date("!%S")})
 
@@ -29,7 +29,7 @@ function HonorAssist:CalculateRealisticHonor(timesKilled, estimatedHonorGained)
 		return 0, 0
 	end
 
-	local percentage = 1 - (0.25 * (timesKilled - 1))
+	local percentage = 1 - (0.25 * timesKilled)
 	local realisticHonor = estimatedHonorGained * percentage
 	return percentage, realisticHonor
 end
