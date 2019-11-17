@@ -4,19 +4,24 @@ HonorAssist = addonTable
 local dailyData = {}
 local totalHonor = 0
 local totalKills = 0
-local startTimeUtc = nil
+local startTimeEpoch = nil
 
 function HonorAssist:LoadDailySettings()
 	dailyData = {}
 	totalHonor = 0
 	totalKills = 0
-	startTimeUtc = HonorAssist:GetHonorDayStartTimeUtc()
-	HonorAssist:GetDailyDataSinceDateTimeUtc(startTimeUtc)
+	startTimeEpoch = HonorAssist:GetHonorDayStartTimeEpoch()
 end
 
-function HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, printResult)
-	dailyData = HonorAssist:AddToDatabase(dailyData, playerKilled, estimatedHonorGained)
-	local timesKilled = #dailyData[playerKilled] -1
+function HonorAssist:GetDailyStartTimeEpoch()
+	return startTimeEpoch
+end
+
+-- Passing in dishonorable kill information will probably not work as expected. We don't really care about dishonorable kills right now.
+-- Mainly because we would rather not test what a dishonorable kill event looks like due to the in-game ramifications.
+function HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, timeKilledUtc, printResult)
+	dailyData = HonorAssist:AddToDatabase(dailyData, playerKilled, estimatedHonorGained, timeKilledUtc)
+	local timesKilled = #dailyData[playerKilled] - 1
 	local percentage, realisticHonor = HonorAssist:CalculateRealisticHonor(timesKilled, estimatedHonorGained)
 
 	totalHonor = totalHonor + realisticHonor
@@ -30,6 +35,8 @@ function HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, 
 	if printResult then
 		print('Realistic Honor: You have killed ' .. playerKilled .. ' ' .. timesKilled + 1 .. ' times. This kill granted ' .. percentage * 100 .. '% value for ' .. realisticHonor .. ' honor.')
 	end
+
+	return realisticHonor
 end
 
 function HonorAssist:GetTotalKillsDailyDatabase(playerName)

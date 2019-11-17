@@ -5,12 +5,12 @@ function HonorAssist:GetCurrentTimeUtc()
 	return '' .. date("!%x") .. ' ' .. date("!%X")
 end
 
-function HonorAssist:GetLastHourTimeUtc()
-	return time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = date("!%H") - 1, min = date("!%M"), sec = date("!%S")})
+function HonorAssist:GetPreviousHourTimeEpoch()
+	return time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = date("!%H"), min = date("!%M"), sec = date("!%S")}) - (60 * 60)
 end
 
-function HonorAssist:GetHonorDayStartTimeUtc()
-	local todaysResetTimeUtc = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = 19, min = 0, sec = 0})
+function HonorAssist:GetHonorDayStartTimeEpoch()
+	local todaysResetTimeUtc = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = 15, min = 0, sec = 0})
 	local currentTimeThresholdUtc = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = date("!%H"), min = date("!%M"), sec = date("!%S")})
 
 	-- If the current UTC time is greater than todays reset time then that means todays reset time is the correct time.
