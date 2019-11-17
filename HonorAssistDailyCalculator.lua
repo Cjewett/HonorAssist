@@ -38,3 +38,10 @@ function HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, 
 
 	return realisticHonor
 end
+
+function HonorAssist:GetTotalKillsDailyDatabase(playerName)
+	if HonorAssist:HasBeenKilled(dailyData, playerName) == false then
+		return 0
+	end
+		return table.getn(dailyData[playerName])
+end

@@ -37,3 +37,9 @@ end
 function HonorAssist:Round(num, numDecimalPlaces)
 	return tonumber(string.format("%." .. (numDecimalPlaces or 0) .. "f", num))
 end
+
+function HonorAssist:GetPlayerDailyKillCount(playerName)
+	local dailyTotalKills = HonorAssist:GetTotalKillsDailyDatabase(playerName)
+	local totalKills = HonorAssist:GetTotalKillsMasterDatabase(playerName)
+	return dailyTotalKills, totalKills
+end

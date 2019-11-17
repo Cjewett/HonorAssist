@@ -28,6 +28,13 @@ function HonorAssist:LoadDataSinceDateTimeUtc(dailyStartTimeEpoch, hourlyStartTi
 	end
 end
 
+function HonorAssist:GetTotalKillsMasterDatabase(playerName)
+	if HonorAssist:HasBeenKilled(HonorAssistData, playerName) == false then
+		return 0
+	end
+		return table.getn(HonorAssistData[playerName])
+end
+
 -- Adds kill to master database.
 function HonorAssist:AddKillToMasterDatabase(playerKilled, estimatedHonorGained, timeKilledUtc)
 	HonorAssistData = HonorAssist:AddToDatabase(HonorAssistData, playerKilled, estimatedHonorGained, timeKilledUtc)
