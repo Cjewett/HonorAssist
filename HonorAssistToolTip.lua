@@ -19,6 +19,8 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
             local honorPercentLeft, realisticHonor = HonorAssist:CalculateRealisticHonor(dailyKillCount, 199 * baseHonor)
 
             -- TODO: Add in toggle for checking if user wants to know if taarger is worth honor
+            -- TODO: Modify algo to reduce based on character's level\rank
+            -- TODO: Modify algo for spliting honor with nearby raid members
             if honorPercentLeft > 0 then
                 self:AddLine("|cff00ff00Honor Value : " .. "|cFF00FFFF" .. honorPercentLeft * 100 .. "%", 1, 1, 1)
                 self:AddLine("|cff00ff00Estimated Honor : " .. "|cFF00FFFF" ..  HonorAssist:Round(realisticHonor), 1, 1, 1)
