@@ -2,6 +2,7 @@ local addonName, addonTable = ...
 HonorAssist = addonTable
 
 local HonorAssistFrame = CreateFrame("Frame", "HonorAssist", UIParent)
+HonorAssistDEBUG = false
 
 HonorAssistFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 HonorAssistFrame:RegisterEvent("CHAT_MSG_COMBAT_HONOR_GAIN")
@@ -76,6 +77,17 @@ end
 
 SLASH_HONORASSIST1 = "/honorassist"
 SlashCmdList["HONORASSIST"] = function(msg)
-	HonorAssistLogging = not HonorAssistLogging
-	print('Honor assist logging set to ' .. tostring(HonorAssistLogging))
+  -- pattern matching that skips leading whitespace and whitespace between cmd and args
+  -- any whitespace at end of args is retained
+  local _, _, cmd, args = string.find(msg, "%s?(%w+)%s?(.*)")
+
+	if cmd == "log" then
+		HonorAssistLogging = not HonorAssistLogging
+		print('HonorAssist logging = ' .. '|cFF00FFFF'.. tostring(HonorAssistLogging))
+	elseif cmd == "debug" then
+		HonorAssistDEBUG = not HonorAssistDEBUG
+		print('HonorAssist DEBUG = ' .. '|cFF00FFFF' .. tostring(HonorAssistDEBUG))
+	else
+		print('Command not found')
+	end
 end
