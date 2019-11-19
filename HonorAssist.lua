@@ -76,18 +76,46 @@ function HonorAssist:OnUpdateTimer(timeSinceLastUpdate)
 end
 
 SLASH_HONORASSIST1 = "/honorassist"
+SLASH_HONORASSIST2 = "/honorassist help"
+SLASH_HONORASSIST3 = "/honorassist log"
+SLASH_HONORASSIST4 = "/honorassist show"
+SLASH_HONORASSIST5 = "/honorassist hide"
+SLASH_HONORASSIST5 = "/honorassist debug"
 SlashCmdList["HONORASSIST"] = function(msg)
-  -- pattern matching that skips leading whitespace and whitespace between cmd and args
-  -- any whitespace at end of args is retained
-  local _, _, cmd, args = string.find(msg, "%s?(%w+)%s?(.*)")
+	if HonorAssist:StringIsNullOrEmpty(msg) then
+		HonorAssist:PrintHelpInformation()
+	end
 
-	if cmd == "log" then
+	local slashCommandMsg = AutoInvite:SplitString(msg, " ")
+	local subCommand = slashCommandMsg[1]
+
+	if subCommand == "help" then
+		HonorAssist:PrintHelpInformation()
+	end
+
+	if subCommand == "log" then
 		HonorAssistLogging = not HonorAssistLogging
 		print('HonorAssist logging = ' .. '|cFF00FFFF'.. tostring(HonorAssistLogging))
-	elseif cmd == "debug" then
+	end
+
+	if subCommand == "debug" then
 		HonorAssistDEBUG = not HonorAssistDEBUG
 		print('HonorAssist DEBUG = ' .. '|cFF00FFFF' .. tostring(HonorAssistDEBUG))
-	else
-		print('Command not found')
 	end
+
+	if subCommand == "show" then
+		HonorAssist:ShowTrackerUi(true)
+	end
+
+	if subCommand == "hide" then
+		HonorAssist:ShowTrackerUi(false)
+	end
+end
+
+function HonorAssist:PrintHelpInformation()
+	print("HonorAssist Help Information")
+	print("/honorassist, /honorassist help -- Displays help information for AutoInvite addon.")
+	print("/honorassist log -- Enables and disablesdetailed messages to chat about how much honor a kill was worth based on diminishing returns.")
+	print("/honorassist show -- Shows the Honor Assist (Daily) tracker.")
+	print("/honorassist hide -- Hides the Honor Assist (Daily) tracker.")
 end

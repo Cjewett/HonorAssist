@@ -7,7 +7,12 @@ function HonorAssist:LoadTrackerUiSettings()
 		HonorAssistTrackerFramePositionY = 0
 	end
 
+	if HonorAssistShowTrackerUi == nil then
+		HonorAssistShowTrackerUi = true
+	end
+
 	HonorAssist:SetPosition()
+	HonorAssist:ShowTrackerUi(HonorAssistShowTrackerUi)
 end
 
 HonorAssist.trackerFrame = CreateFrame("Frame", addonName, UIParent)
@@ -62,7 +67,16 @@ HonorAssist.avgHonorPerHour:SetText("0 honor/hour")
 
 -- Show HonorAssist.trackerFrame
 HonorAssist.trackerFrame:SetPoint("CENTER", 0, 0)
-HonorAssist.trackerFrame:Show()
+
+function HonorAssist:ShowTrackerUi(enable)
+	if enable == true then
+		HonorAssistShowTrackerUi = true
+		HonorAssist.trackerFrame:Show()
+	elseif enable == false then
+		HonorAssistShowTrackerUi = false
+		HonorAssist.trackerFrame:Hide()
+	end
+end
 
 function HonorAssist:SetPosition()
 	if HonorAssistTrackerFramePositionX == nil and HonorAssistTrackerFramePositionY == nil then
