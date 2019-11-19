@@ -39,7 +39,9 @@ function HonorAssist:GetHonorDayStartTimeEpochBasedOnRegion()
 		todaysResetTimeUtc = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = 7, min = 0, sec = 0})
 		currentTimeThresholdUtc = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = date("!%H"), min = date("!%M"), sec = date("!%S")})
 	elseif (regionId == 4) then -- Taiwan. TODO: We don't know Taiwan's honor reset time.
-	elseif (regionId == 5) then -- China. TODO: We don't know China's honor reset time.
+	elseif (regionId == 5) then -- China. Reset time is 8 AM UTC according to wellcat on Curseforge (thank you!).
+		todaysResetTimeUtc = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = 8, min = 0, sec = 0})
+		currentTimeThresholdUtc = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = date("!%H"), min = date("!%M"), sec = date("!%S")})
 	end
 
 	return todaysResetTimeUtc, currentTimeThresholdUtc
