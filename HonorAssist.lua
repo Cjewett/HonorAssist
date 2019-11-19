@@ -2,6 +2,7 @@ local addonName, addonTable = ...
 HonorAssist = addonTable
 
 local HonorAssistFrame = CreateFrame("Frame", "HonorAssist", UIParent)
+HonorAssistDEBUG = false
 
 HonorAssistFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 HonorAssistFrame:RegisterEvent("CHAT_MSG_COMBAT_HONOR_GAIN")
@@ -79,6 +80,7 @@ SLASH_HONORASSIST2 = "/honorassist help"
 SLASH_HONORASSIST3 = "/honorassist log"
 SLASH_HONORASSIST4 = "/honorassist show"
 SLASH_HONORASSIST5 = "/honorassist hide"
+SLASH_HONORASSIST5 = "/honorassist debug"
 SlashCmdList["HONORASSIST"] = function(msg)
 	if HonorAssist:StringIsNullOrEmpty(msg) then
 		HonorAssist:PrintHelpInformation()
@@ -93,7 +95,12 @@ SlashCmdList["HONORASSIST"] = function(msg)
 
 	if subCommand == "log" then
 		HonorAssistLogging = not HonorAssistLogging
-		print('Honor assist logging set to ' .. tostring(HonorAssistLogging))
+		print('HonorAssist logging = ' .. '|cFF00FFFF'.. tostring(HonorAssistLogging))
+	end
+
+	if subCommand == "debug" then
+		HonorAssistDEBUG = not HonorAssistDEBUG
+		print('HonorAssist DEBUG = ' .. '|cFF00FFFF' .. tostring(HonorAssistDEBUG))
 	end
 
 	if subCommand == "show" then

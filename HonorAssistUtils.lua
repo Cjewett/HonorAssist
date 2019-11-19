@@ -1,6 +1,7 @@
 local addonName, addonTable = ...
 HonorAssist = addonTable
 
+
 function HonorAssist:GetCurrentTimeUtc()
 	return '' .. date("!%x") .. ' ' .. date("!%X")
 end
