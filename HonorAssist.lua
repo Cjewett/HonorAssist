@@ -84,7 +84,7 @@ SlashCmdList["HONORASSIST"] = function(msg)
 		HonorAssist:PrintHelpInformation()
 	end
 
-	local slashCommandMsg = AutoInvite:SplitString(msg, " ")
+	local slashCommandMsg = HonorAssist:SplitString(msg, " ")
 	local subCommand = slashCommandMsg[1]
 
 	if subCommand == "help" then
@@ -107,7 +107,7 @@ end
 
 function HonorAssist:PrintHelpInformation()
 	print("HonorAssist Help Information")
-	print("/honorassist, /honorassist help -- Displays help information for AutoInvite addon.")
+	print("/honorassist, /honorassist help -- Displays help information for HonorAssist addon.")
 	print("/honorassist log -- Enables and disablesdetailed messages to chat about how much honor a kill was worth based on diminishing returns.")
 	print("/honorassist show -- Shows the Honor Assist (Daily) tracker.")
 	print("/honorassist hide -- Hides the Honor Assist (Daily) tracker.")
