@@ -40,7 +40,7 @@ function HonorAssist:GetHonorDayStartTimeEpochBasedOnRegion()
 	elseif (regionId == 4) then -- Taiwan. TODO: We don't know Taiwan's honor reset time.
 	elseif (regionId == 5) then -- China. TODO: We don't know China's honor reset time.
 	end
-	
+
 	return todaysResetTimeUtc, currentTimeThresholdUtc
 end
 
@@ -54,12 +54,28 @@ function HonorAssist:CalculateRealisticHonor(timesKilled, estimatedHonorGained)
 	return percentage, realisticHonor
 end
 
-function HonorAssist:Round(num, numDecimalPlaces)
-	return tonumber(string.format("%." .. (numDecimalPlaces or 0) .. "f", num))
-end
-
 function HonorAssist:GetPlayerDailyKillCount(playerName)
 	local dailyTotalKills = HonorAssist:GetTotalKillsDailyDatabase(playerName)
 	local totalKills = HonorAssist:GetTotalKillsMasterDatabase(playerName)
 	return dailyTotalKills, totalKills
+end
+
+function HonorAssist:Round(num, numDecimalPlaces)
+	return tonumber(string.format("%." .. (numDecimalPlaces or 0) .. "f", num))
+end
+
+function HonorAssist:StringIsNullOrEmpty(s)
+	if s == nil or s == '' then
+		return true
+	end
+end
+
+function HonorAssist:SplitString(slashCommand, delimiter)
+	result = {}
+
+	for match in (slashCommand .. delimiter):gmatch("(.-)" .. delimiter) do
+		table.insert(result, match)
+	end
+
+	return result
 end
