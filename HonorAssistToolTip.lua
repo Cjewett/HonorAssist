@@ -9,11 +9,11 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 
     if UnitIsPlayer("mouseover") then
         guid ="mouseover"
-    elseif string.match(GetMouseFocus():GetName(), "targettargettarget") then
+    elseif string.match(GetMouseFocus():GetName():lower(), "targettargettarget") then
         guid = "targettargettarget"
-    elseif string.match(GetMouseFocus():GetName(), "targettarget") then
+    elseif string.match(GetMouseFocus():GetName():lower(), "targettarget") then
         guid = "targettarget"
-    elseif string.match(GetMouseFocus():GetName(), "target") then
+    elseif string.match(GetMouseFocus():GetName():lower(), "target") then
         guid = "target"
     end
 
