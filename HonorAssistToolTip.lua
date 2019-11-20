@@ -1,50 +1,72 @@
 local addonName, addonTable = ...
 HonorAssist = addonTable
 
-local playerFaction, playerlocalizedFaction = UnitFactionGroup("player")
+local currentPlayerFaction, _ = UnitFactionGroup("player")
 
 
 GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+    local frameUnit = nil
 
     if UnitIsPlayer("mouseover") then
-        local mouseoverFaction, mouseoverlocalizedFaction = UnitFactionGroup("mouseover")
-        local playerLevel = UnitLevel("mouseover")
+        frameUnit ="mouseover"
+    elseif string.match(GetMouseFocus():GetName():lower(), "targettargettarget") then
+        frameUnit = "targettargettarget"
+    elseif string.match(GetMouseFocus():GetName():lower(), "targettarget") then
+        frameUnit = "targettarget"
+    elseif string.match(GetMouseFocus():GetName():lower(), "target") then
+        frameUnit = "target"
+    end
 
-        --  TODO need to make this dynamic based on players level (the level cap to show honor)
-        if playerFaction ~= mouseoverFaction and tonumber(playerLevel) > 47 then
-            local playerRank = UnitPVPRank("mouseover")
-            local playerName = UnitName("mouseover")
-            local baseHealth = ( UnitHealth("mouseover") / UnitHealthMax("mouseover") )
+    if frameUnit ~= nil and UnitIsPlayer(frameUnit) then
+        playerData = {}
+        playerData.Faction, _ = UnitFactionGroup(frameUnit)
+        playerData.Level = UnitLevel(frameUnit)
 
-            if HonorAssistDEBUG then
-                print("OnTooltipSetUnit playerName: " .. playerName .. " baseHealth: " .. baseHealth .. " playerLevel: " .. playerLevel .. " playerRank: " .. playerRank)
-            end
+        -- TODO need to make this dynamic based on players level (the level cap to show honor)
+        -- IE only show for players that would give you honor not assuming player is MAX level
 
-            local dailyKillCount, totalKillCount = HonorAssist:GetPlayerDailyKillCount(playerName)
+        if HonorAssistDEBUG then
+            print("This is frameUnit " .. " Frame: " .. GetMouseFocus():GetName() .. " playerData.Faction: " .. playerData.Faction .. "  playerData.Level: "..  playerData.Level)
+        end
 
-            if HonorAssistDEBUG then
-                print("OnTooltipSetUnit dailyKillCount: " .. dailyKillCount .. " totalKillCount: " .. totalKillCount)
-            end
+        if currentPlayerFaction ~= playerData.Faction and tonumber(playerData.Level) > 47 then
 
-            -- TODO: Add in logic for base honor for all ranks
-            -- TODO: Modify algo to reduce based on character's level\rank
-        
-            local honorPercentLeft, realisticHonor = HonorAssist:GetPlayerEstimatedHonor(dailyKillCount, baseHealth, playerLevel, playerRank)
+            playerData.Rank = UnitPVPRank(frameUnit)
+            playerData.Name = UnitName(frameUnit)
+            playerData.baseHealth = ( UnitHealth(frameUnit) / UnitHealthMax(frameUnit) )
 
-            -- TODO: Modify algo for spliting honor with nearby raid members
-            if honorPercentLeft > 0 then
-                self:AddLine("|cff00ff00Honor Value : " .. "|cFF00FFFF" .. honorPercentLeft * 100 .. "%", 1, 1, 1)
-                self:AddLine("|cff00ff00Estimated Honor : " .. "|cFF00FFFF" ..  HonorAssist:Round(realisticHonor), 1, 1, 1)
-            else
-                self:AddLine("|cffff0000NO HONOR", 1, 1, 1)
-            end
-
-            -- TODO: Add in toggle for viewing daily kills
-            self:AddLine("Daily kills : " ..  "|cFF40FB40" .. tostring(dailyKillCount), 1, 1, 1)
-
-            -- TODO: Add in toggle for viewing total kills
-            self:AddLine("Lifetime kills : " .. "|cFF0088FF" .. tostring(totalKillCount), 1, 1, 1)
+            HonorAssist:AddHonorLinesToTooltip(self, playerData)
 
         end
     end
 end)
+
+
+function HonorAssist:AddHonorLinesToTooltip(tooltip, playerData)
+    if HonorAssistDEBUG then
+        print("OnTooltipSetUnit playerName: " .. playerData.Name .. " baseHealth: " .. playerData.baseHealth .. " playerLevel: " .. playerData.Level .. " playerRank: " .. playerData.Rank)
+    end
+
+    local dailyKillCount, totalKillCount = HonorAssist:GetPlayerDailyKillCount(playerData.Name)
+
+    if HonorAssistDEBUG then
+        print("OnTooltipSetUnit dailyKillCount: " .. dailyKillCount .. " totalKillCount: " .. totalKillCount)
+    end
+    
+    local honorPercentLeft, realisticHonor = HonorAssist:GetPlayerEstimatedHonor(dailyKillCount, playerData.baseHealth, playerData.Level, playerData.Rank)
+
+    -- TODO: Modify algo for spliting honor with nearby raid members
+    if honorPercentLeft > 0 then
+        tooltip:AddLine("|cff00ff00Honor Value : " .. "|cFF00FFFF" .. honorPercentLeft * 100 .. "%", 1, 1, 1)
+        tooltip:AddLine("|cff00ff00Estimated Honor : " .. "|cFF00FFFF" ..  HonorAssist:Round(realisticHonor), 1, 1, 1)
+    else
+        tooltip:AddLine("|cffff0000NO HONOR", 1, 1, 1)
+    end
+
+    -- TODO: Add in toggle for viewing daily kills
+    tooltip:AddLine("Daily kills : " ..  "|cFF40FB40" .. tostring(dailyKillCount), 1, 1, 1)
+
+    -- TODO: Add in toggle for viewing total kills
+    tooltip:AddLine("Lifetime kills : " .. "|cFF0088FF" .. tostring(totalKillCount), 1, 1, 1)
+end
+
