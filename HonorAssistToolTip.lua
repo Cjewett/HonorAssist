@@ -5,35 +5,35 @@ local currentPlayerFaction, _ = UnitFactionGroup("player")
 
 
 GameTooltip:HookScript("OnTooltipSetUnit", function(self)
-    local guid = nil
+    local frameUnit = nil
 
     if UnitIsPlayer("mouseover") then
-        guid ="mouseover"
+        frameUnit ="mouseover"
     elseif string.match(GetMouseFocus():GetName():lower(), "targettargettarget") then
-        guid = "targettargettarget"
+        frameUnit = "targettargettarget"
     elseif string.match(GetMouseFocus():GetName():lower(), "targettarget") then
-        guid = "targettarget"
+        frameUnit = "targettarget"
     elseif string.match(GetMouseFocus():GetName():lower(), "target") then
-        guid = "target"
+        frameUnit = "target"
     end
 
-    if guid ~= nil then
+    if frameUnit ~= nil and UnitIsPlayer(frameUnit) then
         playerData = {}
-        playerData.Faction, _ = UnitFactionGroup(guid)
-        playerData.Level = UnitLevel(guid)
+        playerData.Faction, _ = UnitFactionGroup(frameUnit)
+        playerData.Level = UnitLevel(frameUnit)
 
         -- TODO need to make this dynamic based on players level (the level cap to show honor)
         -- IE only show for players that would give you honor not assuming player is MAX level
 
         if HonorAssistDEBUG then
-            print("This is guid " .. " Frame: " .. GetMouseFocus():GetName() .. " playerData.Faction: " .. playerData.Faction .. "  playerData.Level: "..  playerData.Level)
+            print("This is frameUnit " .. " Frame: " .. GetMouseFocus():GetName() .. " playerData.Faction: " .. playerData.Faction .. "  playerData.Level: "..  playerData.Level)
         end
 
         if currentPlayerFaction ~= playerData.Faction and tonumber(playerData.Level) > 47 then
 
-            playerData.Rank = UnitPVPRank(guid)
-            playerData.Name = UnitName(guid)
-            playerData.baseHealth = ( UnitHealth(guid) / UnitHealthMax(guid) )
+            playerData.Rank = UnitPVPRank(frameUnit)
+            playerData.Name = UnitName(frameUnit)
+            playerData.baseHealth = ( UnitHealth(frameUnit) / UnitHealthMax(frameUnit) )
 
             HonorAssist:AddHonorLinesToTooltip(self, playerData)
 
