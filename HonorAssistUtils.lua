@@ -1,7 +1,6 @@
 local addonName, addonTable = ...
 HonorAssist = addonTable
 
-
 function HonorAssist:GetCurrentTimeUtc()
 	return '' .. date("!%x") .. ' ' .. date("!%X")
 end
@@ -81,4 +80,8 @@ function HonorAssist:SplitString(slashCommand, delimiter)
 	end
 
 	return result
+end
+
+function HonorAssist:Trim(s)
+   return (s:gsub("^%s*(.-)%s*$", "%1"))
 end

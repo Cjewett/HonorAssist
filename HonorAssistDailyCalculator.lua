@@ -32,10 +32,6 @@ function HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, 
 
 	HonorAssist:UpdateDailyTrackerAverage(totalKills, totalHonor)
 
-	if printResult then
-		print('Realistic Honor: You have killed ' .. playerKilled .. ' ' .. timesKilled + 1 .. ' times. This kill granted ' .. percentage * 100 .. '% value for ' .. realisticHonor .. ' honor.')
-	end
-
 	return realisticHonor
 end
 

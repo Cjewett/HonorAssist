@@ -77,9 +77,8 @@ end
 
 SLASH_HONORASSIST1 = "/honorassist"
 SLASH_HONORASSIST2 = "/honorassist help"
-SLASH_HONORASSIST3 = "/honorassist log"
-SLASH_HONORASSIST4 = "/honorassist show"
-SLASH_HONORASSIST5 = "/honorassist hide"
+SLASH_HONORASSIST3 = "/honorassist show"
+SLASH_HONORASSIST4 = "/honorassist hide"
 SLASH_HONORASSIST5 = "/honorassist debug"
 SlashCmdList["HONORASSIST"] = function(msg)
 	if HonorAssist:StringIsNullOrEmpty(msg) then
@@ -91,11 +90,6 @@ SlashCmdList["HONORASSIST"] = function(msg)
 
 	if subCommand == "help" then
 		HonorAssist:PrintHelpInformation()
-	end
-
-	if subCommand == "log" then
-		HonorAssistLogging = not HonorAssistLogging
-		print('HonorAssist logging = ' .. '|cFF00FFFF'.. tostring(HonorAssistLogging))
 	end
 
 	if subCommand == "debug" then
@@ -115,7 +109,6 @@ end
 function HonorAssist:PrintHelpInformation()
 	print("HonorAssist Help Information")
 	print("/honorassist, /honorassist help -- Displays help information for HonorAssist addon.")
-	print("/honorassist log -- Enables and disablesdetailed messages to chat about how much honor a kill was worth based on diminishing returns.")
 	print("/honorassist show -- Shows the Honor Assist (Daily) tracker.")
 	print("/honorassist hide -- Hides the Honor Assist (Daily) tracker.")
 end
