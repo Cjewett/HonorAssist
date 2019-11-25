@@ -12,7 +12,7 @@ end
 function HonorAssist:LoadDataSinceDateTimeUtc(dailyStartTimeEpoch, hourlyStartTimeEpoch)
 	for enemyName, enemyKills in pairs(HonorAssistData) do
 		for index, honorGained in pairs(enemyKills) do
-			if honorGained.Honor ~= nil and honorGained.DateUtc ~= nil then
+			if honorGained.Honor ~= nil then
 				local percentage, realisticHonor = HonorAssist:CalculateRealisticHonor(index, honorGained.Honor)
 				local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToLuaTime(honorGained.DateUtc)
 
