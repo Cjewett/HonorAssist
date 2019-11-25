@@ -39,12 +39,14 @@ function HonorAssist:Initialize()
 end
 
 function HonorAssist:ProcessChatMsgCombatHonorGain(honorGainedSummary)
-	local estimatedHonorGained = string.match(honorGainedSummary, "%d+")
-	local playerKilled = string.match(honorGainedSummary, "^([^%s]+)")
-	local eventTimeUtc = HonorAssist:GetCurrentTimeUtc()
-	HonorAssist:AddKillToMasterDatabase(playerKilled, estimatedHonorGained, eventTimeUtc)
-	local honorGained = HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, eventTimeUtc, HonorAssistLogging)
-	HonorAssist:AddKillToHourlyDatabase(honorGained, eventTimeUtc)
+	if string.match(honorGainedSummary, "dies, honorable kill") then
+		local estimatedHonorGained = string.match(honorGainedSummary, "%d+")
+		local playerKilled = string.match(honorGainedSummary, "^([^%s]+)")
+		local eventTimeUtc = HonorAssist:GetCurrentTimeUtc()
+		HonorAssist:AddKillToMasterDatabase(playerKilled, estimatedHonorGained, eventTimeUtc)
+		local honorGained = HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, eventTimeUtc, HonorAssistLogging)
+		HonorAssist:AddKillToHourlyDatabase(honorGained, eventTimeUtc)
+	end
 end
 
 function HonorAssist:OnUpdateTimer(timeSinceLastUpdate)

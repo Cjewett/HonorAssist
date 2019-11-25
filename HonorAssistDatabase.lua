@@ -12,18 +12,20 @@ end
 function HonorAssist:LoadDataSinceDateTimeUtc(dailyStartTimeEpoch, hourlyStartTimeEpoch)
 	for enemyName, enemyKills in pairs(HonorAssistData) do
 		for index, honorGained in pairs(enemyKills) do
-	  		local percentage, realisticHonor = HonorAssist:CalculateRealisticHonor(index, honorGained.Honor)
-	  		local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToLuaTime(honorGained.DateUtc)
+			if honorGained.Honor ~= nil and honorGained.DateUtc ~= nil then
+				local percentage, realisticHonor = HonorAssist:CalculateRealisticHonor(index, honorGained.Honor)
+				local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToLuaTime(honorGained.DateUtc)
 
-	  		-- If the time we killed is greater than daily start time then add data to current day.
-	  		if (timeKilledEpoch > dailyStartTimeEpoch) then
-	  			local realisticHonorGained = HonorAssist:AddKillToDailyDatabase(enemyName, honorGained.Honor, honorGained.DateUtc, false)
+				-- If the time we killed is greater than daily start time then add data to current day.
+				if (timeKilledEpoch > dailyStartTimeEpoch) then
+					local realisticHonorGained = HonorAssist:AddKillToDailyDatabase(enemyName, honorGained.Honor, honorGained.DateUtc, false)
 
-	  			-- If the time we killed is greater than hourly start time then add data to current hour.
-		  		if (timeKilledEpoch > hourlyStartTimeEpoch) then
-		  			HonorAssist:AddKillToHourlyDatabase(realisticHonorGained, honorGained.DateUtc)
-		  		end
-	  		end
+					-- If the time we killed is greater than hourly start time then add data to current hour.
+					if (timeKilledEpoch > hourlyStartTimeEpoch) then
+						HonorAssist:AddKillToHourlyDatabase(realisticHonorGained, honorGained.DateUtc)
+					end
+				end
+			end
 		end
 	end
 end
