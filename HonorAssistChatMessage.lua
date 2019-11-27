@@ -6,7 +6,8 @@ HonorAssist = addonTable
 ChatFrame_AddMessageEventFilter("CHAT_MSG_COMBAT_HONOR_GAIN", function(self, event, text, ...)
 	local estimatedHonorGained = string.match(text, "%d+")
 	local playerKilled = string.match(text, "^([^%s]+)")
-	local playerRank = HonorAssist:Trim(string.match(text, "(Rank:.([^(]+))"))
+	local playerRank = HonorAssist:Trim(string.match(text, "^(.([^(]+))")) -- Extracts message up until first open parentheses.
+	playerRank = string.match(playerRank, "(%a+:.+)") -- Pulls out "Rank: Title".
 
 	if HonorAssist:IsHonorableKill(estimatedHonorGained, playerKilled, playerRank) then
 		text = HonorAssist:CreateHonorableKillMessage(estimatedHonorGained, playerKilled, playerRank, text)
