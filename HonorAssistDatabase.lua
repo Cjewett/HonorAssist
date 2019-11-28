@@ -12,7 +12,7 @@ end
 function HonorAssist:LoadDataSinceDateTimeUtc(dailyStartTimeEpoch, hourlyStartTimeEpoch)
 	for enemyName, enemyKills in pairs(HonorAssistData) do
 		for index, honorGained in pairs(enemyKills) do
-			if honorGained.Honor ~= nil then
+			if not HonorAssist:CheckIfInvalidKill(honorGained) then
 				local percentage, realisticHonor = HonorAssist:CalculateRealisticHonor(index, honorGained.Honor)
 				local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToLuaTime(honorGained.DateUtc)
 
@@ -28,6 +28,16 @@ function HonorAssist:LoadDataSinceDateTimeUtc(dailyStartTimeEpoch, hourlyStartTi
 			end
 		end
 	end
+end
+
+-- 11/24/2019: It was possible for the database to log dishonorable kills. That resulted in no Honor saved in the database and we were not handling nil values. This check is required as long as 
+-- we want to support early users (and we do). 
+function HonorAssist:CheckIfInvalidKill(honorGained)
+	if honorGained.Honor == nil or honorGained.DateUtc == nil then
+		return true
+	end
+
+	return false
 end
 
 function HonorAssist:GetTotalKillsMasterDatabase(playerName)

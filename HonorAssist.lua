@@ -39,14 +39,18 @@ function HonorAssist:Initialize()
 end
 
 function HonorAssist:ProcessChatMsgCombatHonorGain(honorGainedSummary)
-	if string.match(honorGainedSummary, "dies, honorable kill") then
-		local estimatedHonorGained = string.match(honorGainedSummary, "%d+")
-		local playerKilled = string.match(honorGainedSummary, "^([^%s]+)")
-		local eventTimeUtc = HonorAssist:GetCurrentTimeUtc()
-		HonorAssist:AddKillToMasterDatabase(playerKilled, estimatedHonorGained, eventTimeUtc)
-		local honorGained = HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, eventTimeUtc, HonorAssistLogging)
-		HonorAssist:AddKillToHourlyDatabase(honorGained, eventTimeUtc)
+	local estimatedHonorGained = string.match(honorGainedSummary, "%d+")
+	local playerKilled = string.match(honorGainedSummary, "^([^%s]+)")
+
+	-- It's a dishonorable kill. Just ignore it. 
+	if estimatedHonorGained == nil or playerKilled == nil then
+		return
 	end
+
+	local eventTimeUtc = HonorAssist:GetCurrentTimeUtc()
+	HonorAssist:AddKillToMasterDatabase(playerKilled, estimatedHonorGained, eventTimeUtc)
+	local honorGained = HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, eventTimeUtc, HonorAssistLogging)
+	HonorAssist:AddKillToHourlyDatabase(honorGained, eventTimeUtc)
 end
 
 function HonorAssist:OnUpdateTimer(timeSinceLastUpdate)
