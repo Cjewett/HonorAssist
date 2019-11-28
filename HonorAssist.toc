@@ -4,12 +4,35 @@
 ## Version: 0.7.1
 ## SavedVariablesPerCharacter: HonorAssistData, HonorAssistLogging, HonorAssistTrackerFramePositionX, HonorAssistTrackerFramePositionY, HonorAssistShowTrackerUi
 
+# Localization
+Localizations\enUS.lua
+Localizations\deDE.lua
+Localizations\esES.lua
+Localizations\esMX.lua
+Localizations\frFR.lua
+Localizations\itIT.lua
+Localizations\koKR.lua
+Localizations\ruRU.lua
+Localizations\zhCN.lua
+Localizations\zhTW.lua
+Localizations\ptBR.lua
+
+# Main Starter File
 HonorAssist.lua
+
+# Utils
+Utils\HonorAssistLocalizationUtils.lua
 HonorAssistUtils.lua
+HonorAssistToolTipUtils.lua
+
+# Database
 HonorAssistDatabase.lua
+
+# Services
 HonorAssistDailyCalculator.lua
 HonorAssistHourlyCalculator.lua
-HonorAssistTrackerUi.lua
-HonorAssistToolTipUtils.lua
 HonorAssistToolTip.lua
 HonorAssistChatMessage.lua
+
+# UI
+HonorAssistTrackerUi.lua
