@@ -29,14 +29,14 @@ end
 function HonorAssist:CreateHonorableKillMessage(estimatedHonorGained, playerKilled, playerRank, text)
 	local timesKilled = HonorAssist:GetTotalKillsDailyDatabase(playerKilled)
 	local percentage, realisticHonor = HonorAssist:CalculateRealisticHonor(timesKilled - 1, estimatedHonorGained)
-	local timeText = 'times'
+	local timeText = 'TIMES'
 
 	if timesKilled == 1 then
-		timeText = 'time'
+		timeText = 'TIME'
 	end
 
-	text = 'You have killed ' .. playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. ' ' .. timeText 
-		.. '. This kill granted ' .. percentage * 100 .. '% value for ' .. realisticHonor .. ' honor ' .. string.match(text, "(%(.+)") .. '.'
-
+	text = HonorAssist:GetTranslation("YOU_HAVE_KILLED") .. ' ' .. playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. ' ' .. HonorAssist:GetTranslation(timeText) .. '. '
+		.. HonorAssist:GetTranslation("THIS_KILL_GRANTED") .. ' ' .. percentage * 100 .. '% ' .. HonorAssist:GetTranslation("VALUE_FOR") .. ' ' .. realisticHonor .. ' ' .. HonorAssist:GetTranslation("HONOR"):lower() .. ' ' .. string.match(text, "(%(.+)") .. '.'
+	
 	return text
 end

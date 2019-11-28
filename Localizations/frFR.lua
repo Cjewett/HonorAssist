@@ -13,6 +13,11 @@ local L = {
 	["DAILY"] = "Journalières"; -- Quêtes journalières : Changed from Github
 	["HOUR"] = "Heure";
 	["HONOR_ASSIST"] = "Honneur Assistant";
+	["YOU_HAVE_KILLED"] = "You have killed";
+	["TIME"] = "time";
+	["TIMES"] = "times";
+	["THIS_KILL_GRANTED"] = "This kill granted";
+	["VALUE_FOR"] = "value for";
 }
 
 HonorAssist.L = L

@@ -13,6 +13,11 @@ local L = {
 	["DAILY"] = "日常";
 	["HOUR"] = "小时";
 	["HONOR_ASSIST"] = "荣誉 助攻";
+	["YOU_HAVE_KILLED"] = "You have killed";
+	["TIME"] = "time";
+	["TIMES"] = "times";
+	["THIS_KILL_GRANTED"] = "This kill granted";
+	["VALUE_FOR"] = "value for";
 }
 
 HonorAssist.L = L
