@@ -13,11 +13,11 @@ local L = {
 	["DAILY"] = "일일";
 	["HOUR"] = "시간";
 	["HONOR_ASSIST"] = "명예 지원";
-	["YOU_HAVE_KILLED"] = "You have killed";
-	["TIME"] = "time";
-	["TIMES"] = "times";
-	["THIS_KILL_GRANTED"] = "This kill granted";
-	["VALUE_FOR"] = "value for";
+	["YOU_HAVE_KILLED"] = "당신은 죽였습니다";
+	["TIME"] = "시각";
+	["TIMES"] = "타임스";
+	["THIS_KILL_GRANTED"] = "이 살인은 허용";
+	["VALUE_FOR"] = "에 대한 가치";
 }
 
 HonorAssist.L = L

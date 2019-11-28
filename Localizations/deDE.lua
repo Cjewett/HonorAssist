@@ -13,11 +13,11 @@ local L = {
 	["DAILY"] = "Täglich";
 	["HOUR"] = "Stunde";
 	["HONOR_ASSIST"] = "Honour Assist";
-	["YOU_HAVE_KILLED"] = "You have killed";
-	["TIME"] = "time";
-	["TIMES"] = "times";
-	["THIS_KILL_GRANTED"] = "This kill granted";
-	["VALUE_FOR"] = "value for";
+	["YOU_HAVE_KILLED"] = "Du hast getötet";
+	["TIME"] = "zeit";
+	["TIMES"] = "mal";
+	["THIS_KILL_GRANTED"] = "Dieser Mord wurde gewährt";
+	["VALUE_FOR"] = "wert für";
 }
 
 HonorAssist.L = L
