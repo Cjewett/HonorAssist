@@ -35,8 +35,10 @@ function HonorAssist:CreateHonorableKillMessage(estimatedHonorGained, playerKill
 		timeText = 'time'
 	end
 
-	text = 'You have killed ' .. playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. ' ' .. timeText 
-		.. '. This kill granted ' .. percentage * 100 .. '% value for ' .. realisticHonor .. ' honor ' .. string.match(text, "(%(.+)") .. '.'
+	local chatInfo = ChatTypeInfo["COMBAT_HONOR_GAIN"]
 
+	text = 'You have killed ' .. playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. ' ' .. timeText 
+		.. '. This kill granted ' .. percentage * 100 .. '% value for ' .. '|cFF00ccff' .. realisticHonor .. ' honor ' 
+		.. '|cFF' .. HonorAssist:RGBPercToHex(chatInfo.r, chatInfo.g, chatInfo.b) .. string.match(text, "(%(.+)") .. '.'
 	return text
 end
