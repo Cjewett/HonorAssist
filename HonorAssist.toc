@@ -36,3 +36,4 @@ HonorAssistChatMessage.lua
 
 # UI
 HonorAssistTrackerUi.lua
+HonorAssistOptionsUi.lua
