@@ -1,7 +1,7 @@
 ## Interface: 11302
 ## Title: HonorAssist
 ## Author: Eulav, CptMerlot
-## Version: 0.7.1
+## Version: 0.7.3
 ## SavedVariablesPerCharacter: HonorAssistData, HonorAssistLogging, HonorAssistTrackerFramePositionX, HonorAssistTrackerFramePositionY, HonorAssistShowTrackerUi
 
 # Localization
@@ -33,6 +33,7 @@ HonorAssistDailyCalculator.lua
 HonorAssistHourlyCalculator.lua
 HonorAssistToolTip.lua
 HonorAssistChatMessage.lua
+HonorAssistNameplate.lua
 
 # UI
 HonorAssistTrackerUi.lua

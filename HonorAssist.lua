@@ -110,6 +110,11 @@ SlashCmdList["HONORASSIST"] = function(msg)
 	if subCommand == "hide" then
 		HonorAssist:ShowTrackerUi(false)
 	end
+
+	if subCommand == "nameplate" then
+		HonorAssistLogging = not HonorAssistLogging
+		print('HonorAssist turned on nameplate total honor values to DEBUG = ' .. '|cFF00FFFF' .. tostring(HonorAssistLogging))
+	end
 end
 
 function HonorAssist:PrintHelpInformation()
@@ -117,4 +122,5 @@ function HonorAssist:PrintHelpInformation()
 	print("/honorassist, /honorassist help -- Displays help information for HonorAssist addon.")
 	print("/honorassist show -- Shows the Honor Assist (Daily) tracker.")
 	print("/honorassist hide -- Hides the Honor Assist (Daily) tracker.")
+	print("/honorassist nameplate -- Toggles display of total honor possible next to enemy nameplates name. Default UI only.")
 end
