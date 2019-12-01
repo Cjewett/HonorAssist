@@ -20,7 +20,7 @@ end
 -- Passing in dishonorable kill information will probably not work as expected. We don't really care about dishonorable kills right now.
 -- Mainly because we would rather not test what a dishonorable kill event looks like due to the in-game ramifications.
 function HonorAssist:AddKillToHourlyDatabase(honorGained, timeKilledUtc)
-	local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToLuaTime(timeKilledUtc)
+	local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToEpochTime(timeKilledUtc)
 
 	-- If there is no or negative honor then return.
 	if (honorGained <= 0) then
