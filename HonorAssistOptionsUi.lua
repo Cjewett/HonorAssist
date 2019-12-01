@@ -18,6 +18,11 @@ local messageHeight = 10
 HonorAssist.OptionsUi.optionsFrame = CreateFrame("Frame", addonName .. "Options", InterfaceOptionsFramePanelContainer)
 HonorAssist.OptionsUi.optionsFrame.name = addonName
 InterfaceOptions_AddCategory(HonorAssist.OptionsUi.optionsFrame)
+HonorAssist.OptionsUi.optionsFrame:SetScript("OnShow", 
+	function()
+		HonorAssist:PushHistoryDataToUi()
+	end
+);
 
 -- Start Title Section
 HonorAssist.OptionsUi.optionsTitle = HonorAssist.OptionsUi.optionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")

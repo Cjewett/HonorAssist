@@ -37,7 +37,6 @@ function HonorAssist:Initialize()
 	-- Push data into all of the services from the master database.
 	-- 'All' currently includes HonorAssistDailyCalculator and HonorAssistHourlyCalculator.
 	HonorAssist:LoadDataSinceDateTimeUtc(HonorAssist:GetDailyStartTimeEpoch(), HonorAssist:GetHourlyStartTimeEpoch())
-	HonorAssist:PushHistoryDataToUi()
 end
 
 function HonorAssist:ProcessChatMsgCombatHonorGain(honorGainedSummary)
