@@ -138,8 +138,11 @@ function HonorAssist:PushToNextHistory()
 
 		for index, dayStartTimeEpoch in pairs(dayStartTimesEpoch) do
 			local dayLog = HonorAssist:GetCachedDayLog(dayStartTimeEpoch)
-			totalHonor = totalHonor + dayLog.TotalHonor
-			totalKills = totalKills + dayLog.TotalKills
+
+			if dayLog ~= nil then
+				totalHonor = totalHonor + dayLog.TotalHonor
+				totalKills = totalKills + dayLog.TotalKills
+			end
 		end
 
 		HonorAssist:UpdateNextHistoryDescription(HonorAssist:GetTranslation("THIS_WEEK")) -- Pass in localized parameter
@@ -182,6 +185,10 @@ function HonorAssist:GenerateDayLog(dayData)
 	dayLog.KillHistory = {}
 	dayLog.TotalKills = 0
 	dayLog.TotalHonor = 0
+
+	if dayData == nil then
+		return
+	end
 
 	for enemyName, enemyKills in pairs(dayData) do
 		for index, honorGained in pairs(enemyKills) do
