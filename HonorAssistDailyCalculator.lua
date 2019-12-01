@@ -41,7 +41,3 @@ function HonorAssist:GetTotalKillsDailyDatabase(playerName)
 	end
 		return table.getn(dailyData[playerName])
 end
-
-function HonorAssist:GetDailyDatabase()
-	return dailyData
-end
