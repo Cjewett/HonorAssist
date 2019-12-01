@@ -52,7 +52,7 @@ function HonorAssist:ProcessChatMsgCombatHonorGain(honorGainedSummary)
 	HonorAssist:AddKillToMasterDatabase(playerKilled, estimatedHonorGained, eventTimeUtc)
 	local honorGained = HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, eventTimeUtc, HonorAssistLogging)
 	HonorAssist:AddKillToHourlyDatabase(honorGained, eventTimeUtc)
-	HonorAssist:AddKillToHistory(playerKilled, estimatedHonorGained, timeKilledUtc)
+	HonorAssist:AddKillToHistory(playerKilled, estimatedHonorGained, eventTimeUtc)
 end
 
 function HonorAssist:OnUpdateTimer(timeSinceLastUpdate)
