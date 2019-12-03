@@ -39,7 +39,7 @@ function HonorAssist:CreateHonorableKillMessage(estimatedHonorGained, playerKill
 
 	text = HonorAssist:GetTranslation("YOU_HAVE_KILLED") .. ' ' .. playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. ' ' .. HonorAssist:GetTranslation(timeText) .. '. '
 		.. HonorAssist:GetTranslation("THIS_KILL_GRANTED") .. ' ' .. percentage * 100 .. '% ' .. HonorAssist:GetTranslation("VALUE_FOR") .. ' |cFF00ccff' .. realisticHonor .. ' ' 
-		.. HonorAssist:GetTranslation("HONOR"):lower() .. '|cFF' .. HonorAssist:RGBPercToHex(chatInfo.r, chatInfo.g, chatInfo.b) .. ' ' .. string.match(text, "(%(.+)") .. '.'
+		.. HonorAssist:GetTranslation("HONOR") .. '|cFF' .. HonorAssist:RGBPercToHex(chatInfo.r, chatInfo.g, chatInfo.b) .. ' ' .. string.match(text, "(%(.+)") .. '.'
 	
 	return text
 end
