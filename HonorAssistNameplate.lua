@@ -16,7 +16,7 @@ hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
 		if not UnitIsPVP(frame.unit) or UnitIsTrivial(frame.unit) or level <= 47 then
 			return
 		end
-		
+      
 		local name = GetUnitName(frame.unit)
 		local rank = UnitPVPRank(frame.unit)
 		local timesKilledToday = HonorAssist:GetTotalKillsDailyDatabase(name)

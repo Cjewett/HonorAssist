@@ -18,6 +18,8 @@ local L = {
 	["TIMES"] = "times";
 	["THIS_KILL_GRANTED"] = "This kill granted";
 	["VALUE_FOR"] = "value for";
+	["THIS_WEEK"] = "This Week";
+	["HISTORY"] = "History";
 }
 
 HonorAssist.L = L

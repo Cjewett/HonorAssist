@@ -18,6 +18,8 @@ local L = {
 	["TIMES"] = "時報";
 	["THIS_KILL_GRANTED"] = "這個殺人獎勵";
 	["VALUE_FOR"] = "值 對於";
+	["THIS_WEEK"] = "本星期";
+	["HISTORY"] = "歷史";
 }
 
 HonorAssist.L = L

@@ -32,6 +32,7 @@ function HonorAssist:Initialize()
 	HonorAssist:LoadDailySettings()
 	HonorAssist:LoadHourlySettings()
 	HonorAssist:LoadTrackerUiSettings()
+	HonorAssist:LoadHistoryLoader()
 
 	-- Push data into all of the services from the master database.
 	-- 'All' currently includes HonorAssistDailyCalculator and HonorAssistHourlyCalculator.
@@ -51,6 +52,7 @@ function HonorAssist:ProcessChatMsgCombatHonorGain(honorGainedSummary)
 	HonorAssist:AddKillToMasterDatabase(playerKilled, estimatedHonorGained, eventTimeUtc)
 	local honorGained = HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, eventTimeUtc, HonorAssistLogging)
 	HonorAssist:AddKillToHourlyDatabase(honorGained, eventTimeUtc)
+	HonorAssist:AddKillToHistory(playerKilled, estimatedHonorGained, eventTimeUtc)
 end
 
 function HonorAssist:OnUpdateTimer(timeSinceLastUpdate)

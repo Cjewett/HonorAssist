@@ -18,6 +18,8 @@ local L = {
 	["TIMES"] = "타임스";
 	["THIS_KILL_GRANTED"] = "이 살인은 허용";
 	["VALUE_FOR"] = "에 대한 가치";
+	["THIS_WEEK"] = "이번 주";
+	["HISTORY"] = "역사";
 }
 
 HonorAssist.L = L

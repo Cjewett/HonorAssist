@@ -18,6 +18,8 @@ local L = {
 	["TIMES"] = "volte";
 	["THIS_KILL_GRANTED"] = "Questa uccisione è stata concessa";
 	["VALUE_FOR"] = "valore per";
+	["THIS_WEEK"] = "Questa Settimana";
+	["HISTORY"] = "Storia";
 }
 
 HonorAssist.L = L
