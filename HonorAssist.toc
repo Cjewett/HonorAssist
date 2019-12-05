@@ -38,3 +38,4 @@ HonorAssistHistoryLoader.lua
 # UI
 HonorAssistTrackerUi.lua
 HonorAssistOptionsUi.lua
+HonorAssistNameplate.lua
