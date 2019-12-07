@@ -15,6 +15,11 @@ local historyHeight = 282
 local historyWidth = 201
 local messageHeight = 10
 
+function HonorAssist:LoadOptionsUi()
+	HonorAssist.OptionsUi.trackerUiEnable:SetChecked(HonorAssistShowTrackerUi)
+	HonorAssist.OptionsUi.nameplateEnable:SetChecked(HonorAssistNameplateToggle)
+end
+
 HonorAssist.OptionsUi.optionsFrame = CreateFrame("Frame", addonName .. "Options", InterfaceOptionsFramePanelContainer)
 HonorAssist.OptionsUi.optionsFrame.name = addonName
 InterfaceOptions_AddCategory(HonorAssist.OptionsUi.optionsFrame)
@@ -29,6 +34,41 @@ HonorAssist.OptionsUi.optionsTitle = HonorAssist.OptionsUi.optionsFrame:CreateFo
 HonorAssist.OptionsUi.optionsTitle:SetPoint("TOP", 0, optionsTitleYOffset)
 HonorAssist.OptionsUi.optionsTitle:SetText(HonorAssist:GetTranslation("HONOR_ASSIST"))
 -- End Title Section
+
+-- Start Enable Tracker CheckButton Section
+
+HonorAssist.OptionsUi.trackerUiEnable = CreateFrame("CheckButton", nil, HonorAssist.OptionsUi.optionsFrame, "ChatConfigCheckButtonTemplate")
+HonorAssist.OptionsUi.trackerUiEnable:SetPoint("TOPLEFT", 16, -32)
+HonorAssist.OptionsUi.trackerUiEnable:SetScript("OnClick",
+	function()
+		HonorAssistShowTrackerUi = not HonorAssistShowTrackerUi
+		HonorAssist:ShowTrackerUi(HonorAssistShowTrackerUi)
+		HonorAssist.OptionsUi.trackerUiEnable:SetChecked(HonorAssistShowTrackerUi)
+	end
+);
+
+HonorAssist.OptionsUi.trackerUiEnableLabel = HonorAssist.OptionsUi.optionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+HonorAssist.OptionsUi.trackerUiEnableLabel:SetPoint("TOPLEFT", 42, -38)
+HonorAssist.OptionsUi.trackerUiEnableLabel:SetText("Enable Tracker")
+
+-- End Enable Tracker CheckButton Section
+
+-- Start Enable Nameplate CheckButton Section
+
+HonorAssist.OptionsUi.nameplateEnable = CreateFrame("CheckButton", nil, HonorAssist.OptionsUi.optionsFrame, "ChatConfigCheckButtonTemplate")
+HonorAssist.OptionsUi.nameplateEnable:SetPoint("TOPLEFT", 16, -54)
+HonorAssist.OptionsUi.nameplateEnable:SetScript("OnClick",
+	function()
+		HonorAssistNameplateToggle = not HonorAssistNameplateToggle
+		HonorAssist.OptionsUi.nameplateEnable:SetChecked(HonorAssistNameplateToggle)
+	end
+);
+
+HonorAssist.OptionsUi.nameplateEnableLabel = HonorAssist.OptionsUi.optionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+HonorAssist.OptionsUi.nameplateEnableLabel:SetPoint("TOPLEFT", 42, -60)
+HonorAssist.OptionsUi.nameplateEnableLabel:SetText("Display Total Honor Possible By Nameplate (Default UI Only)")
+
+-- End Enable Nameplate CheckButton Section
 
 -- Start History Section
 

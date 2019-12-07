@@ -1,7 +1,13 @@
 local currentPlayerFaction, _ = UnitFactionGroup("player")
 
+function HonorAssist:LoadNameplateSettings()
+	if HonorAssistNameplateToggle == nil then
+		HonorAssistNameplateToggle = true
+	end
+end
+
 hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
-	if (not HonorAssistLogging) then
+	if (not HonorAssistNameplateToggle) then
 		return
 	end
 
