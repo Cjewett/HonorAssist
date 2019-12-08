@@ -123,7 +123,6 @@ function HonorAssist:PushToCurrentHistory()
 
 	local dayLog = HonorAssist:GetCachedDayLog(historyDisplayTimeEpoch)
 	for k, v in pairs(dayLog.KillHistory) do
-		print(v.Name)
 		if v.TimesKilled > 1 then
 			HonorAssist:AddCurrentHistoryMessage('' .. v.DateUtc .. ': ' .. v.Name .. ' ' .. v.TimesKilled .. 'x (' .. v.Honor .. ' honor)')
 		else

@@ -23,7 +23,7 @@ local L = {
 	["FROM_BONUS"] = "From Bonus";
 	["FROM_KILLS"] = "From Kills";
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Enable Tracker";
-	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Display Total Honor Possible By Nameplate (Default UI Only)";
+	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Enable Honor on Nameplate";
 }
 
 HonorAssist.L = L

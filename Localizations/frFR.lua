@@ -22,8 +22,8 @@ local L = {
 	["HISTORY"] = "Histoire";
 	["FROM_BONUS"] = "From Bonus";
 	["FROM_KILLS"] = "From Kills";
-	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Enable Tracker";
-	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Display Total Honor Possible By Nameplate (Default UI Only)";
+	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Activer le traqueur";
+	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Activer l'honneur sur la plaque signalétique";
 }
 
 HonorAssist.L = L

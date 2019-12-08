@@ -22,8 +22,8 @@ local L = {
 	["HISTORY"] = "历史";
 	["FROM_BONUS"] = "From Bonus";
 	["FROM_KILLS"] = "From Kills";
-	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Enable Tracker";
-	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Display Total Honor Possible By Nameplate (Default UI Only)";
+	["OPTIONS_ENABLE_TRACKER_LABEL"] = "启用追踪器";
+	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "在铭牌上启用荣誉";
 }
 
 HonorAssist.L = L
