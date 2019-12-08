@@ -20,6 +20,10 @@ local L = {
 	["VALUE_FOR"] = "valor para";
 	["THIS_WEEK"] = "Esta Semana";
 	["HISTORY"] = "História";
+	["FROM_BONUS"] = "From Bonus";
+	["FROM_KILLS"] = "From Kills";
+	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Ativar rastreador";
+	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Ativar honra na placa de identificação";
 }
 
 HonorAssist.L = L

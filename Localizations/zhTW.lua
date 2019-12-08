@@ -20,6 +20,10 @@ local L = {
 	["VALUE_FOR"] = "值 對於";
 	["THIS_WEEK"] = "本星期";
 	["HISTORY"] = "歷史";
+	["FROM_BONUS"] = "From Bonus";
+	["FROM_KILLS"] = "From Kills";
+	["OPTIONS_ENABLE_TRACKER_LABEL"] = "啟用追踪器";
+	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "在銘牌上啟用榮譽";
 }
 
 HonorAssist.L = L

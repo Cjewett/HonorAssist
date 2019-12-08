@@ -9,7 +9,6 @@ local startTimeEpoch = nil
 function HonorAssist:LoadHourlySettings()
 	hourlyData = {}
 	totalHonor = 0
-	totalKills = 0
 	startTimeEpoch = HonorAssist:GetPreviousHourTimeEpoch()
 end
 
@@ -19,7 +18,7 @@ end
 
 -- Passing in dishonorable kill information will probably not work as expected. We don't really care about dishonorable kills right now.
 -- Mainly because we would rather not test what a dishonorable kill event looks like due to the in-game ramifications.
-function HonorAssist:AddKillToHourlyDatabase(honorGained, timeKilledUtc)
+function HonorAssist:AddToHourlyDatabase(honorGained, timeKilledUtc)
 	local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToEpochTime(timeKilledUtc)
 
 	-- If there is no or negative honor then return.
@@ -39,7 +38,6 @@ function HonorAssist:AddKillToHourlyDatabase(honorGained, timeKilledUtc)
 
 	table.insert(hourlyData[timeKilledEpoch], { Honor = honorGained })
 	totalHonor = totalHonor + honorGained
-	totalKills = totalKills + 1
 	HonorAssist:UpdateHourlyHonor(totalHonor)
 	return totalHonor
 end

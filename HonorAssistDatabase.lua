@@ -1,6 +1,7 @@
 local addonName, addonTable = ...
 HonorAssist = addonTable
 
+HonorAssist.BonusHonorKey = "Bonus Honor"
 local databaseTimePattern = "(%d+)/(%d+)/(%d+) (%d+):(%d+):(%d+)"
 
 function HonorAssist:LoadDatabaseSettings()
@@ -12,21 +13,34 @@ end
 function HonorAssist:LoadDataSinceDateTimeUtc(dailyStartTimeEpoch, hourlyStartTimeEpoch)
 	for enemyName, enemyKills in pairs(HonorAssistData) do
 		for index, honorGained in pairs(enemyKills) do
-			if not HonorAssist:CheckIfInvalidKill(honorGained) then
-				local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToEpochTime(honorGained.DateUtc)
+			if not HonorAssist:CheckIfInvalidEntry(honorGained) then
+				if enemyName ~= HonorAssist.BonusHonorKey then
+					local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToEpochTime(honorGained.DateUtc)
 
-				-- If the time we killed is greater than daily start time then add data to current day.
-				if (timeKilledEpoch >= dailyStartTimeEpoch) then
-					local realisticHonorGained = HonorAssist:AddKillToDailyDatabase(enemyName, honorGained.Honor, honorGained.DateUtc, false)
+					-- If the time we killed is greater than daily start time then add data to current day.
+					if (timeKilledEpoch >= dailyStartTimeEpoch) then
+						local realisticHonorGained = HonorAssist:AddKillToDailyDatabase(enemyName, honorGained.Honor, honorGained.DateUtc)
 
-					-- If the time we killed is greater than hourly start time then add data to current hour.
-					if (timeKilledEpoch >= hourlyStartTimeEpoch) then
-						HonorAssist:AddKillToHourlyDatabase(realisticHonorGained, honorGained.DateUtc)
+						-- If the time we killed is greater than hourly start time then add data to current hour.
+						if (timeKilledEpoch >= hourlyStartTimeEpoch) then
+							HonorAssist:AddToHourlyDatabase(realisticHonorGained, honorGained.DateUtc)
+						end
 					end
-				end
 
-				-- Send all kills to to be processed by history.
-				HonorAssist:AddKillToHistory(enemyName, honorGained.Honor, honorGained.DateUtc)
+					-- Send all kills to to be processed by history.
+					HonorAssist:AddKillToHistory(enemyName, honorGained.Honor, honorGained.DateUtc)
+				else
+					local eventTimeEpoch = HonorAssist:DatabaseTimeUtcToEpochTime(honorGained.DateUtc)
+					if (eventTimeEpoch >= dailyStartTimeEpoch) then
+						local realisticHonorGained = HonorAssist:AddBonusHonorToDailyDatabase(tonumber(honorGained.Honor), honorGained.DateUtc)
+
+						if (eventTimeEpoch >= hourlyStartTimeEpoch) then
+							HonorAssist:AddToHourlyDatabase(realisticHonorGained, honorGained.DateUtc)
+						end
+					end
+
+					HonorAssist:AddBonusHonorToHistory(honorGained.Honor, honorGained.DateUtc)
+				end
 			end
 		end
 	end
@@ -34,7 +48,7 @@ end
 
 -- 11/24/2019: It was possible for the database to log dishonorable kills. That resulted in no Honor saved in the database and we were not handling nil values. This check is required as long as 
 -- we want to support early users (and we do). 
-function HonorAssist:CheckIfInvalidKill(honorGained)
+function HonorAssist:CheckIfInvalidEntry(honorGained)
 	if honorGained.Honor == nil or honorGained.DateUtc == nil then
 		return true
 	end
@@ -43,7 +57,7 @@ function HonorAssist:CheckIfInvalidKill(honorGained)
 end
 
 function HonorAssist:GetTotalKillsMasterDatabase(playerName)
-	if HonorAssist:HasBeenKilled(HonorAssistData, playerName) == false then
+	if HonorAssist:HasDatabaseEntry(HonorAssistData, playerName) == false then
 		return 0
 	end
 		return table.getn(HonorAssistData[playerName])
@@ -54,23 +68,24 @@ function HonorAssist:AddKillToMasterDatabase(playerKilled, estimatedHonorGained,
 	HonorAssistData = HonorAssist:AddToDatabase(HonorAssistData, playerKilled, estimatedHonorGained, timeKilledUtc)
 end
 
--- Add kill to database passed in and return the same table back with whatever maniuplations were made.
--- Also return the amount of times the player has been killed which determines the diminishing return.
-function HonorAssist:AddToDatabase(databaseTable, playerKilled, estimatedHonorGained, timeKilledUtc)
-	if HonorAssist:HasBeenKilled(databaseTable, playerKilled) == false then
-		databaseTable[playerKilled] = {}
+function HonorAssist:AddBonusHonorToMasterDatabase(estimatedHonorGained, eventTimeUtc)
+	HonorAssistData = HonorAssist:AddToDatabase(HonorAssistData, HonorAssist.BonusHonorKey, estimatedHonorGained, eventTimeUtc)
+end
+
+-- Add honor to database passed in and return the same table back with whatever maniuplations were made.
+function HonorAssist:AddToDatabase(databaseTable, uniqueKey, estimatedHonorGained, eventTimeUtc)
+	if HonorAssist:HasDatabaseEntry(databaseTable, uniqueKey) == false then
+		databaseTable[uniqueKey] = {}
 	end
 
-	local timesKilled = #databaseTable[playerKilled]
-
-	table.insert(databaseTable[playerKilled], { Honor = estimatedHonorGained, DateUtc = timeKilledUtc })
+	table.insert(databaseTable[uniqueKey], { Honor = estimatedHonorGained, DateUtc = eventTimeUtc })
 
 	return databaseTable
 end
 
--- Checks if the player has been killed before.
-function HonorAssist:HasBeenKilled(databaseTable, playerName)
-	return databaseTable[playerName] ~= nil
+-- Checks if key has entry before.
+function HonorAssist:HasDatabaseEntry(databaseTable, uniqueKey)
+	return databaseTable[uniqueKey] ~= nil
 end
 
 -- Database is in format of mm/dd/yy hh:mm:ss. We want to convert that format to epoch time.

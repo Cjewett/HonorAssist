@@ -20,6 +20,10 @@ local L = {
 	["VALUE_FOR"] = "значение для";
 	["THIS_WEEK"] = "На этой неделе";
 	["HISTORY"] = "история";
+	["FROM_BONUS"] = "From Bonus";
+	["FROM_KILLS"] = "From Kills";
+	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Включить трекер";
+	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Включить честь на шильдике";
 }
 
 HonorAssist.L = L

@@ -33,6 +33,8 @@ function HonorAssist:Initialize()
 	HonorAssist:LoadHourlySettings()
 	HonorAssist:LoadTrackerUiSettings()
 	HonorAssist:LoadHistoryLoader()
+	HonorAssist:LoadNameplateSettings()
+	HonorAssist:LoadOptionsUi()
 
 	-- Push data into all of the services from the master database.
 	-- 'All' currently includes HonorAssistDailyCalculator and HonorAssistHourlyCalculator.
@@ -40,19 +42,39 @@ function HonorAssist:Initialize()
 end
 
 function HonorAssist:ProcessChatMsgCombatHonorGain(honorGainedSummary)
+	local eventTimeUtc = HonorAssist:GetCurrentTimeUtc()
 	local estimatedHonorGained = string.match(honorGainedSummary, "%d+")
 	local playerKilled = string.match(honorGainedSummary, "^([^%s]+)")
+	local hasParentheses = string.match(honorGainedSummary, "%(")
 
-	-- It's a dishonorable kill. Just ignore it. 
-	if estimatedHonorGained == nil or playerKilled == nil then
+	-- If there is no number then it is a dishonorable kill. Ignore.
+	if estimatedHonorGained == nil then
 		return
 	end
 
-	local eventTimeUtc = HonorAssist:GetCurrentTimeUtc()
+	-- If there is estimatedHonorGained, playerKilled, and parentheses in the summary then a player was killed.
+	if estimatedHonorGained ~= nil and playerKilled ~= nil and hasParentheses ~= nill then
+		HonorAssist:ProcessPlayerKillMessage(eventTimeUtc, estimatedHonorGained, playerKilled)
+	end
+
+	-- If there is estimatedHonorGained and no parentheses in the summary then bonus honor was gained. 
+	if estimatedHonorGained ~= nil and hasParentheses == nil then
+		HonorAssist:ProcessBonusHonorMessage(eventTimeUtc, estimatedHonorGained)
+	end
+end
+
+function HonorAssist:ProcessPlayerKillMessage(eventTimeUtc, estimatedHonorGained, playerKilled)
 	HonorAssist:AddKillToMasterDatabase(playerKilled, estimatedHonorGained, eventTimeUtc)
-	local honorGained = HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, eventTimeUtc, HonorAssistLogging)
-	HonorAssist:AddKillToHourlyDatabase(honorGained, eventTimeUtc)
+	local honorGained = HonorAssist:AddKillToDailyDatabase(playerKilled, estimatedHonorGained, eventTimeUtc)
+	HonorAssist:AddToHourlyDatabase(honorGained, eventTimeUtc)
 	HonorAssist:AddKillToHistory(playerKilled, estimatedHonorGained, eventTimeUtc)
+end
+
+function HonorAssist:ProcessBonusHonorMessage(eventTimeUtc, estimatedHonorGained)
+	HonorAssist:AddBonusHonorToMasterDatabase(estimatedHonorGained, eventTimeUtc)
+	local honorGained = HonorAssist:AddBonusHonorToDailyDatabase(tonumber(estimatedHonorGained), eventTimeUtc)
+	HonorAssist:AddToHourlyDatabase(honorGained, eventTimeUtc)
+	HonorAssist:AddBonusHonorToHistory(honorGained, eventTimeUtc)
 end
 
 function HonorAssist:OnUpdateTimer(timeSinceLastUpdate)
@@ -113,9 +135,8 @@ SlashCmdList["HONORASSIST"] = function(msg)
 		HonorAssist:ShowTrackerUi(false)
 	end
 
-	if subCommand == "nameplate" then
-		HonorAssistLogging = not HonorAssistLogging
-		print('HonorAssist turned on nameplate total honor values to DEBUG = ' .. '|cFF00FFFF' .. tostring(HonorAssistLogging))
+	if subCommand == "test" then
+		HonorAssist:ProcessChatMsgCombatHonorGain("You have been awarded 200 honor points")
 	end
 end
 
@@ -124,5 +145,4 @@ function HonorAssist:PrintHelpInformation()
 	print("/honorassist, /honorassist help -- Displays help information for HonorAssist addon.")
 	print("/honorassist show -- Shows the Honor Assist (Daily) tracker.")
 	print("/honorassist hide -- Hides the Honor Assist (Daily) tracker.")
-	print("/honorassist nameplate -- Toggles display of total honor possible next to enemy nameplates name. Default UI only.")
 end
