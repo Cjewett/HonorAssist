@@ -49,7 +49,7 @@ HonorAssist.OptionsUi.trackerUiEnable:SetScript("OnClick",
 
 HonorAssist.OptionsUi.trackerUiEnableLabel = HonorAssist.OptionsUi.optionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 HonorAssist.OptionsUi.trackerUiEnableLabel:SetPoint("TOPLEFT", 42, -38)
-HonorAssist.OptionsUi.trackerUiEnableLabel:SetText("Enable Tracker")
+HonorAssist.OptionsUi.trackerUiEnableLabel:SetText(HonorAssist:GetTranslation("OPTIONS_ENABLE_TRACKER_LABEL"))
 
 -- End Enable Tracker CheckButton Section
 
@@ -66,7 +66,7 @@ HonorAssist.OptionsUi.nameplateEnable:SetScript("OnClick",
 
 HonorAssist.OptionsUi.nameplateEnableLabel = HonorAssist.OptionsUi.optionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 HonorAssist.OptionsUi.nameplateEnableLabel:SetPoint("TOPLEFT", 42, -60)
-HonorAssist.OptionsUi.nameplateEnableLabel:SetText("Display Total Honor Possible By Nameplate (Default UI Only)")
+HonorAssist.OptionsUi.nameplateEnableLabel:SetText(HonorAssist:GetTranslation("OPTIONS_ENABLE_NAMEPLATE_LABEL"))
 
 -- End Enable Nameplate CheckButton Section
 

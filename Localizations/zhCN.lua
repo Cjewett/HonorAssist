@@ -20,6 +20,10 @@ local L = {
 	["VALUE_FOR"] = "值 对于";
 	["THIS_WEEK"] = "本星期";
 	["HISTORY"] = "历史";
+	["FROM_BONUS"] = "From Bonus";
+	["FROM_KILLS"] = "From Kills";
+	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Enable Tracker";
+	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Display Total Honor Possible By Nameplate (Default UI Only)";
 }
 
 HonorAssist.L = L

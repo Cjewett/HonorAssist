@@ -63,14 +63,22 @@ function HonorAssist:GetNextDayTimeEpoch()
 end
 
 function HonorAssist:AddKillToHistory(playerKilled, estimatedHonorGained, timeKilledUtc)
-	local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToEpochTime(timeKilledUtc)
-	local honorDayStartTimeEpoch = HonorAssist:GetHonorDayStartTimeEpochBasedOnKillTimeEpoch(timeKilledEpoch)
+	HonorAssist:AddToHistory(playerKilled, estimatedHonorGained, timeKilledUtc)
+end
+
+function HonorAssist:AddBonusHonorToHistory(bonusHonorGained, eventTimeUtc)
+	HonorAssist:AddToHistory(HonorAssist.BonusHonorKey, bonusHonorGained, eventTimeUtc)
+end
+
+function HonorAssist:AddToHistory(uniqueKey, estimatedHonorGained, eventTimeUtc)
+	local eventTimeEpoch = HonorAssist:DatabaseTimeUtcToEpochTime(eventTimeUtc)
+	local honorDayStartTimeEpoch = HonorAssist:GetHonorDayStartTimeEpochBasedOnKillTimeEpoch(eventTimeEpoch)
 
 	if historyData[honorDayStartTimeEpoch] == nil then
 		historyData[honorDayStartTimeEpoch] = {}
 	end
 
-	historyData[honorDayStartTimeEpoch] = HonorAssist:AddToDatabase(historyData[honorDayStartTimeEpoch], playerKilled, estimatedHonorGained, timeKilledUtc)
+	historyData[honorDayStartTimeEpoch] = HonorAssist:AddToDatabase(historyData[honorDayStartTimeEpoch], uniqueKey, estimatedHonorGained, eventTimeUtc)
 end
 
 function HonorAssist:PushHistoryDataToUi()
@@ -115,6 +123,7 @@ function HonorAssist:PushToCurrentHistory()
 
 	local dayLog = HonorAssist:GetCachedDayLog(historyDisplayTimeEpoch)
 	for k, v in pairs(dayLog.KillHistory) do
+		print(v.Name)
 		if v.TimesKilled > 1 then
 			HonorAssist:AddCurrentHistoryMessage('' .. v.DateUtc .. ': ' .. v.Name .. ' ' .. v.TimesKilled .. 'x (' .. v.Honor .. ' honor)')
 		else
@@ -192,11 +201,17 @@ function HonorAssist:GenerateDayLog(dayData)
 
 	for enemyName, enemyKills in pairs(dayData) do
 		for index, honorGained in pairs(enemyKills) do
-			local percentage, realisticHonor = HonorAssist:CalculateRealisticHonor(index - 1, honorGained.Honor)
-			local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToEpochTime(honorGained.DateUtc)
-			table.insert(dayLog.KillHistory, { Name = enemyName, DateUtc = honorGained.DateUtc:match("(%d+:%d+:%d+)"), Honor = realisticHonor, TimesKilled = index })
-			dayLog.TotalKills = dayLog.TotalKills + 1
-			dayLog.TotalHonor = dayLog.TotalHonor + realisticHonor
+			if (enemyName ~= HonorAssist.BonusHonorKey) then
+				local percentage, realisticHonor = HonorAssist:CalculateRealisticHonor(index - 1, honorGained.Honor)
+				local timeKilledEpoch = HonorAssist:DatabaseTimeUtcToEpochTime(honorGained.DateUtc)
+				table.insert(dayLog.KillHistory, { Name = enemyName, DateUtc = honorGained.DateUtc:match("(%d+:%d+:%d+)"), Honor = realisticHonor, TimesKilled = index })
+				dayLog.TotalKills = dayLog.TotalKills + 1
+				dayLog.TotalHonor = dayLog.TotalHonor + realisticHonor
+			else
+				local eventTimeEpoch = HonorAssist:DatabaseTimeUtcToEpochTime(honorGained.DateUtc)
+				table.insert(dayLog.KillHistory, { Name = enemyName, DateUtc = honorGained.DateUtc:match("(%d+:%d+:%d+)"), Honor = honorGained.Honor, TimesKilled = 0 })
+				dayLog.TotalHonor = dayLog.TotalHonor + honorGained.Honor			
+			end
 		end
 	end
 

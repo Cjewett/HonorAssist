@@ -6,6 +6,8 @@ local totalKillsText = HonorAssist:GetTranslation("KILLS") .. ": "
 local honorGainedTodayText = HonorAssist:GetTranslation("HONOR_GAINED") .. ": "
 local averageHonorText = HonorAssist:GetTranslation("AVERAGE") .. ": "
 local honorPerHourText = HonorAssist:GetTranslation("HONOR") .. "/" .. HonorAssist:GetTranslation("HOUR")
+local fromBonusText = HonorAssist:GetTranslation("FROM_BONUS")
+local fromKillsText = HonorAssist:GetTranslation("FROM_KILLS")
 
 function HonorAssist:LoadTrackerUiSettings()
 	if HonorAssistTrackerFramePositionX == nil or HonorAssistTrackerFramePositionY == nil then
@@ -24,7 +26,7 @@ end
 HonorAssist.trackerFrame = CreateFrame("Frame", addonName, UIParent)
 HonorAssist.trackerFrame:SetFrameStrata("BACKGROUND")
 HonorAssist.trackerFrame:SetWidth(175)
-HonorAssist.trackerFrame:SetHeight(75)
+HonorAssist.trackerFrame:SetHeight(108)
 HonorAssist.trackerFrame:SetMovable(true)
 HonorAssist.trackerFrame:EnableMouse(true)
 HonorAssist.trackerFrame:SetClampedToScreen(true)
@@ -47,21 +49,33 @@ HonorAssist.title:SetPoint("TOP", 2, 0)
 HonorAssist.title:SetTextColor(1, 1, 1, 1)
 HonorAssist.title:SetText(titleText)
 
--- Total Kills
-HonorAssist.totalKills = HonorAssist.trackerFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-HonorAssist.totalKills:SetPoint("TOPLEFT", 4, -18)
-HonorAssist.totalKills:SetTextColor(1, 1, 1, 1)
-HonorAssist.totalKills:SetText(totalKillsText)
-
 -- Honor Gained Today
 HonorAssist.honorGained = HonorAssist.trackerFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-HonorAssist.honorGained:SetPoint("TOPLEFT", 4, -34)
+HonorAssist.honorGained:SetPoint("TOPLEFT", 4, -18)
 HonorAssist.honorGained:SetTextColor(1, 1, 1, 1)
 HonorAssist.honorGained:SetText(honorGainedTodayText)
 
+-- Honor From Bonus
+HonorAssist.honorFromBonus = HonorAssist.trackerFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+HonorAssist.honorFromBonus:SetPoint("TOPLEFT", 4, -34)
+HonorAssist.honorFromBonus:SetTextColor(1, 1, 1, 1)
+HonorAssist.honorFromBonus:SetText("From Bonus:")
+
+-- Honor From Kills
+HonorAssist.honorFromKills = HonorAssist.trackerFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+HonorAssist.honorFromKills:SetPoint("TOPLEFT", 4, -50)
+HonorAssist.honorFromKills:SetTextColor(1, 1, 1, 1)
+HonorAssist.honorFromKills:SetText("From Kills:")
+
+-- Total Kills
+HonorAssist.totalKills = HonorAssist.trackerFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+HonorAssist.totalKills:SetPoint("TOPLEFT", 4, -66)
+HonorAssist.totalKills:SetTextColor(1, 1, 1, 1)
+HonorAssist.totalKills:SetText(totalKillsText)
+
 -- Average Honor Per Kill
 HonorAssist.avgHonor = HonorAssist.trackerFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-HonorAssist.avgHonor:SetPoint("TOPLEFT", 4, -50)
+HonorAssist.avgHonor:SetPoint("TOPLEFT", 4, -82)
 HonorAssist.avgHonor:SetTextColor(1, 1, 1, 1)
 HonorAssist.avgHonor:SetText(averageHonorText)
 
@@ -106,4 +120,12 @@ end
 
 function HonorAssist:UpdateHourlyHonor(hourlyHonor)
 	HonorAssist.avgHonorPerHour:SetText(HonorAssist:Round(hourlyHonor, 2) .. " " .. honorPerHourText)
+end
+
+function HonorAssist:UpdateDailyBonusHonor(honor)
+	HonorAssist.honorFromBonus:SetText(fromBonusText .. ": " .. honor)
+end
+
+function HonorAssist:UpdateDailyKillHonor(honor)
+	HonorAssist.honorFromKills:SetText(fromKillsText .. ": " .. honor)
 end

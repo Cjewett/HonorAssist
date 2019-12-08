@@ -20,6 +20,10 @@ local L = {
 	["VALUE_FOR"] = "에 대한 가치";
 	["THIS_WEEK"] = "이번 주";
 	["HISTORY"] = "역사";
+	["FROM_BONUS"] = "From Bonus";
+	["FROM_KILLS"] = "From Kills";
+	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Enable Tracker";
+	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Display Total Honor Possible By Nameplate (Default UI Only)";
 }
 
 HonorAssist.L = L
