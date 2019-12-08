@@ -24,6 +24,7 @@ local L = {
 	["FROM_KILLS"] = "From Kills";
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Activer le traqueur";
 	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Activer l'honneur sur la plaque signalétique";
+	["OPTIONS_ENABLE_SHORT_KILL_MSG"] = "Activer le court message d'honneur";
 }
 
 HonorAssist.L = L

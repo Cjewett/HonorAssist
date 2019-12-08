@@ -18,6 +18,7 @@ local messageHeight = 10
 function HonorAssist:LoadOptionsUi()
 	HonorAssist.OptionsUi.trackerUiEnable:SetChecked(HonorAssistShowTrackerUi)
 	HonorAssist.OptionsUi.nameplateEnable:SetChecked(HonorAssistNameplateToggle)
+	HonorAssist.OptionsUi.shortKillMsgEnable:SetChecked(HonorAssistShortKillMessageToggle)
 end
 
 HonorAssist.OptionsUi.optionsFrame = CreateFrame("Frame", addonName .. "Options", InterfaceOptionsFramePanelContainer)
@@ -69,6 +70,23 @@ HonorAssist.OptionsUi.nameplateEnableLabel:SetPoint("TOPLEFT", 42, -60)
 HonorAssist.OptionsUi.nameplateEnableLabel:SetText(HonorAssist:GetTranslation("OPTIONS_ENABLE_NAMEPLATE_LABEL"))
 
 -- End Enable Nameplate CheckButton Section
+
+-- Start Short Kill Message CheckButton Section
+
+HonorAssist.OptionsUi.shortKillMsgEnable = CreateFrame("CheckButton", nil, HonorAssist.OptionsUi.optionsFrame, "ChatConfigCheckButtonTemplate")
+HonorAssist.OptionsUi.shortKillMsgEnable:SetPoint("TOPLEFT", 16, -76)
+HonorAssist.OptionsUi.shortKillMsgEnable:SetScript("OnClick",
+	function()
+		HonorAssistShortKillMessageToggle = not HonorAssistShortKillMessageToggle
+		HonorAssist.OptionsUi.shortKillMsgEnable:SetChecked(HonorAssistShortKillMessageToggle)
+	end
+);
+
+HonorAssist.OptionsUi.shortKillMsgEnableLabel = HonorAssist.OptionsUi.optionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+HonorAssist.OptionsUi.shortKillMsgEnableLabel:SetPoint("TOPLEFT", 42, -82)
+HonorAssist.OptionsUi.shortKillMsgEnableLabel:SetText(HonorAssist:GetTranslation("OPTIONS_ENABLE_SHORT_KILL_MSG"))
+
+-- End Short Kill Message CheckButton Section
 
 -- Start History Section
 

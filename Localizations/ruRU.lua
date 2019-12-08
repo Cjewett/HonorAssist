@@ -24,6 +24,7 @@ local L = {
 	["FROM_KILLS"] = "From Kills";
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Включить трекер";
 	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Включить честь на шильдике";
+	["OPTIONS_ENABLE_SHORT_KILL_MSG"] = "Включить короткое сообщение чести";
 }
 
 HonorAssist.L = L

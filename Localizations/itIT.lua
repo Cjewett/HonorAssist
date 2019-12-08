@@ -24,6 +24,7 @@ local L = {
 	["FROM_KILLS"] = "From Kills";
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Abilita Tracker";
 	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Abilita Honor sulla targhetta";
+	["OPTIONS_ENABLE_SHORT_KILL_MSG"] = "Abilita breve messaggio d'onore";
 }
 
 HonorAssist.L = L

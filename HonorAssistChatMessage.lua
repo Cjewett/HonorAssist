@@ -1,6 +1,12 @@
 local addonName, addonTable = ...
 HonorAssist = addonTable
 
+function HonorAssist:LoadChatMessageSettings()
+	if HonorAssistShortKillMessageToggle == nil then
+		HonorAssistShortKillMessageToggle = false
+	end
+end
+
 -- This runs after HonorAssistDailyCalculator. That means the kill is already added to that database, so we can use the times killed from that service.
 -- When calculating realistic honor we need to decrease by 1 to get the real value of the kill. 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_COMBAT_HONOR_GAIN", function(self, event, text, ...)
@@ -37,9 +43,13 @@ function HonorAssist:CreateHonorableKillMessage(estimatedHonorGained, playerKill
 
 	local chatInfo = ChatTypeInfo["COMBAT_HONOR_GAIN"]
 
-	text = HonorAssist:GetTranslation("YOU_HAVE_KILLED") .. ' ' .. playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. ' ' .. HonorAssist:GetTranslation(timeText) .. '. '
-		.. HonorAssist:GetTranslation("THIS_KILL_GRANTED") .. ' ' .. percentage * 100 .. '% ' .. HonorAssist:GetTranslation("VALUE_FOR") .. ' |cFF00ccff' .. realisticHonor .. ' ' 
-		.. HonorAssist:GetTranslation("HONOR"):lower() .. '|cFF' .. HonorAssist:RGBPercToHex(chatInfo.r, chatInfo.g, chatInfo.b) .. ' ' .. string.match(text, "(%(.+)") .. '.'
+	if not HonorAssistShortKillMessageToggle then
+		text = HonorAssist:GetTranslation("YOU_HAVE_KILLED") .. ' ' .. playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. ' ' .. HonorAssist:GetTranslation(timeText) .. '. '
+			.. HonorAssist:GetTranslation("THIS_KILL_GRANTED") .. ' ' .. percentage * 100 .. '% ' .. HonorAssist:GetTranslation("VALUE_FOR") .. ' |cFF00ccff' .. realisticHonor .. ' ' 
+			.. HonorAssist:GetTranslation("HONOR"):lower() .. '|cFF' .. HonorAssist:RGBPercToHex(chatInfo.r, chatInfo.g, chatInfo.b) .. ' ' .. string.match(text, "(%(.+)") .. '.'
+	else
+		text = playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. 'x: |cFF00ccff' .. realisticHonor .. ' ' .. HonorAssist:GetTranslation("HONOR"):lower()
+	end
 	
 	return text
 end

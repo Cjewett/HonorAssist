@@ -2,7 +2,7 @@
 ## Title: HonorAssist
 ## Author: Eulav, CptMerlot
 ## Version: 0.8
-## SavedVariablesPerCharacter: HonorAssistData, HonorAssistLogging, HonorAssistTrackerFramePositionX, HonorAssistTrackerFramePositionY, HonorAssistShowTrackerUi, HonorAssistNameplateToggle
+## SavedVariablesPerCharacter: HonorAssistData, HonorAssistLogging, HonorAssistTrackerFramePositionX, HonorAssistTrackerFramePositionY, HonorAssistShowTrackerUi, HonorAssistNameplateToggle, HonorAssistShortKillMessageToggle
 
 # Localization
 Localizations\enUS.lua

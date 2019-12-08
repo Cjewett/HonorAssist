@@ -24,6 +24,7 @@ local L = {
 	["FROM_KILLS"] = "From Kills";
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "启用追踪器";
 	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "在铭牌上启用荣誉";
+	["OPTIONS_ENABLE_SHORT_KILL_MSG"] = "启用荣誉短消息";
 }
 
 HonorAssist.L = L
