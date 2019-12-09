@@ -30,7 +30,7 @@ function HonorAssist:GetHonorDayStartTimeEpochBasedOnRegion()
 	local todaysResetTimeEpoch = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = 16, min = 0, sec = 0})
 	local currentTimeThresholdEpoch = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = date("!%H"), min = date("!%M"), sec = date("!%S")})
 
-	if (regionId == 1) then -- US (includes Brazil and Oceania). Reset time is 3 PM UTC (unconfirmed).
+	if (regionId == 1) then -- US (includes Brazil and Oceania). Reset time is 4 PM UTC (confirmed by rankers).
 		 todaysResetTimeEpoch = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = 16, min = 0, sec = 0})
 		 currentTimeThresholdEpoch = time({ year = date("!%Y"), month = date("!%m"), day = date("!%d"), hour = date("!%H"), min = date("!%M"), sec = date("!%S")})
 	elseif (regionId == 2) then -- Korea. TODO: We don't know Korea's honor reset time.
@@ -51,10 +51,10 @@ function HonorAssist:GetHonorDayStartTimeEpochBasedOnKillTimeEpoch(timeKilledEpo
 	local killTime = date("*t", timeKilledEpoch)
 
 	-- Default to US time. Maybe change to Midnight in the future but ideally we find all the real reset times.  
-	local resetTimeEpoch = time({ year = killTime.year, month = killTime.month, day = killTime.day, hour = 15, min = 0, sec = 0})
+	local resetTimeEpoch = time({ year = killTime.year, month = killTime.month, day = killTime.day, hour = 16, min = 0, sec = 0})
 
-	if (regionId == 1) then -- US (includes Brazil and Oceania). Reset time is 3 PM UTC (unconfirmed).
-		 resetTimeEpoch = time({ year = killTime.year, month = killTime.month, day = killTime.day, hour = 15, min = 0, sec = 0})
+	if (regionId == 1) then -- US (includes Brazil and Oceania). Reset time is 4 PM UTC (confirmed by rankers).
+		 resetTimeEpoch = time({ year = killTime.year, month = killTime.month, day = killTime.day, hour = 16, min = 0, sec = 0})
 	elseif (regionId == 2) then -- Korea. TODO: We don't know Korea's honor reset time.
 	elseif (regionId == 3) then -- Europe (includes Russia). Reset time is 7 AM UTC according to Dagochen on Curseforge (thank you!).
 		resetTimeEpoch = time({ year = killTime.year, month = killTime.month, day = killTime.day, hour = 7, min = 0, sec = 0})
