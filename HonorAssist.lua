@@ -108,6 +108,7 @@ end
 SLASH_HONORASSIST1 = "/honorassist"
 SLASH_HONORASSIST2 = "/honorassist help"
 SLASH_HONORASSIST3 = "/honorassist show"
+SLASH_HONORASSIST2 = "/honorassist reset"
 SLASH_HONORASSIST4 = "/honorassist hide"
 SLASH_HONORASSIST5 = "/honorassist debug"
 SlashCmdList["HONORASSIST"] = function(msg)
@@ -135,6 +136,10 @@ SlashCmdList["HONORASSIST"] = function(msg)
 		HonorAssist:ShowTrackerUi(false)
 	end
 
+	if subCommand == "reset" then
+		HonorAssist:ResetPosition()
+	end
+
 	if subCommand == "test" then
 		HonorAssist:ProcessChatMsgCombatHonorGain("You have been awarded 200 honor points")
 	end
@@ -145,4 +150,5 @@ function HonorAssist:PrintHelpInformation()
 	print("/honorassist, /honorassist help -- Displays help information for HonorAssist addon.")
 	print("/honorassist show -- Shows the Honor Assist (Daily) tracker.")
 	print("/honorassist hide -- Hides the Honor Assist (Daily) tracker.")
+	print("/honorassist reset -- Resets the position of the Honor Assist (Daily) tracker.")
 end
