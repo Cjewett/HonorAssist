@@ -106,6 +106,14 @@ function HonorAssist:SetPosition()
 	end
 end
 
+function HonorAssist:ResetPosition()
+	HonorAssistTrackerFramePositionX = nil
+	HonorAssistTrackerFramePositionY = nil
+
+	HonorAssist.trackerFrame:ClearAllPoints()
+	HonorAssist.trackerFrame:SetPoint("CENTER", HonorAssistTrackerFramePositionX, HonorAssistTrackerFramePositionY)
+end
+
 function HonorAssist:UpdateDailyTrackerKills(kills) 
 	HonorAssist.totalKills:SetText(totalKillsText .. kills)
 end
