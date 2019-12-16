@@ -25,6 +25,9 @@ local L = {
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Tracker aktivieren";
 	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Aktivieren Sie die Ehre auf dem Typenschild";
 	["OPTIONS_ENABLE_SHORT_KILL_MSG"] = "Kurze Ehrennachricht aktivieren";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "Aktiviere Battleground Frames";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "Fenster Battleground Frames sperren";
+	["DEAD"] = "TOT";
 }
 
 HonorAssist.L = L

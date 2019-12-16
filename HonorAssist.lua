@@ -11,10 +11,48 @@ HonorAssistFrame:SetScript("OnUpdate", function(self, timeSinceLastUpdate) Honor
 HonorAssistFrame:SetScript("OnEvent", function(self, event, ...)
 	if event == "PLAYER_ENTERING_WORLD" then
 		HonorAssist:ProcessPlayerEnteringWorld()
+		HonorAssist:UpdateBattlegroundState()
 	end
 
 	if event == "CHAT_MSG_COMBAT_HONOR_GAIN" then
 		HonorAssist:ProcessChatMsgCombatHonorGain(...)
+	end
+
+	if event == "UPDATE_BATTLEFIELD_SCORE" then
+		HonorAssist:UpdateBattlefieldScore()
+	end
+
+	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
+		HonorAssist:ProcessCombatLogEventUnfiltered(...)
+	end
+
+	if event == "UNIT_HEALTH_FREQUENT" then
+		local unit = ...
+		HonorAssist:UpdateBgFrameHealth(unit)
+		HonorAssist:UpdateBgFramePower(unit)
+	end
+
+	if event == "UNIT_POWER_FREQUENT" then
+		local unit = ...
+		HonorAssist:UpdateBgFrameHealth(unit)
+		HonorAssist:UpdateBgFramePower(unit)
+	end
+
+	if event == "PLAYER_TARGET_CHANGED" then
+		HonorAssist:ReportNewBgUnit("target")
+	end
+
+	if event == "UNIT_TARGET" then
+		local unit = ...
+		HonorAssist:ReportNewBgUnit(unit .. "target")
+		HonorAssist:UpdateBgFrameHealth(unit .. "target")
+		HonorAssist:UpdateBgFramePower(unit)
+	end
+
+	if event == "UPDATE_MOUSEOVER_UNIT" then
+		HonorAssist:ReportNewBgUnit("mouseover")
+		HonorAssist:UpdateBgFrameHealth("mouseover")
+		HonorAssist:UpdateBgFramePower("mouseover")
 	end
 end)
 
@@ -34,11 +72,15 @@ function HonorAssist:Initialize()
 	HonorAssist:LoadTrackerUiSettings()
 	HonorAssist:LoadHistoryLoader()
 	HonorAssist:LoadNameplateSettings()
-	HonorAssist:LoadOptionsUi()
+	HonorAssist:LoadBGFrames()
+	HonorAssist:LoadBGFramesUi()
 
 	-- Push data into all of the services from the master database.
 	-- 'All' currently includes HonorAssistDailyCalculator and HonorAssistHourlyCalculator.
 	HonorAssist:LoadDataSinceDateTimeUtc(HonorAssist:GetDailyStartTimeEpoch(), HonorAssist:GetHourlyStartTimeEpoch())
+
+	-- Always load options UI last.
+	HonorAssist:LoadOptionsUi()
 end
 
 function HonorAssist:ProcessChatMsgCombatHonorGain(honorGainedSummary)
@@ -95,14 +137,37 @@ function HonorAssist:OnUpdateTimer(timeSinceLastUpdate)
 
 	-- Check to see if daily data needs to be reset
 	if (HonorAssist:GetHonorDayStartTimeEpoch() ~= HonorAssist:GetDailyStartTimeEpoch()) then
-		-- Just reinitialize everything for now. Wanted a quick solution before committing to anything. Hard to test without the daily resets actually working right now but 
-		-- I'm fairly certain this works correctly.
 		HonorAssist:Initialize()
 		return
 	end
 
 	-- Recalculate hourly data
 	HonorAssist:RecalculateHourlyData()
+end
+
+function HonorAssist:UpdateBattlegroundState()
+	local inInstance, instanceType = IsInInstance()
+	local name, instanceTypeTwo, difficultyID, difficultyName, maxPlayers, dynamicDifficulty, isDynamic, instanceID, instanceGroupSize, LfgDungeonID = GetInstanceInfo()
+
+	if (inInstance and instanceType == "pvp" and instanceID == 489 and HonorAssistBattlegroundFramesToggle)  then
+		RequestBattlefieldScoreData()
+		isInBattleground = true
+		HonorAssistFrame:RegisterEvent("UPDATE_BATTLEFIELD_SCORE")
+		HonorAssistFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		HonorAssistFrame:RegisterEvent("UNIT_HEALTH_FREQUENT")
+		HonorAssistFrame:RegisterEvent("UNIT_TARGET")
+		HonorAssistFrame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
+		HonorAssistFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
+	else
+		isInBattleground = false
+		HonorAssistFrame:UnregisterEvent("UPDATE_BATTLEFIELD_SCORE")
+		HonorAssistFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		HonorAssistFrame:UnregisterEvent("UNIT_HEALTH_FREQUENT")
+		HonorAssistFrame:UnregisterEvent("UNIT_TARGET")
+		HonorAssistFrame:UnregisterEvent("UPDATE_MOUSEOVER_UNIT")
+		HonorAssistFrame:UnregisterEvent("PLAYER_TARGET_CHANGED")
+		HonorAssist:ClearAllBgFrames()
+	end
 end
 
 SLASH_HONORASSIST1 = "/honorassist"
@@ -138,10 +203,6 @@ SlashCmdList["HONORASSIST"] = function(msg)
 
 	if subCommand == "reset" then
 		HonorAssist:ResetPosition()
-	end
-
-	if subCommand == "test" then
-		HonorAssist:ProcessChatMsgCombatHonorGain("You have been awarded 200 honor points")
 	end
 end
 

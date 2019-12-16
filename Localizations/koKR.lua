@@ -25,6 +25,9 @@ local L = {
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "트래커 사용";
 	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "명판에 명예 활성화";
 	["OPTIONS_ENABLE_SHORT_KILL_MSG"] = "단명 메시지 사용";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "전장 프레임 사용";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "전장 프레임 잠금 창";
+	["DEAD"] = "죽은";
 }
 
 HonorAssist.L = L

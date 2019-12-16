@@ -19,6 +19,8 @@ function HonorAssist:LoadOptionsUi()
 	HonorAssist.OptionsUi.trackerUiEnable:SetChecked(HonorAssistShowTrackerUi)
 	HonorAssist.OptionsUi.nameplateEnable:SetChecked(HonorAssistNameplateToggle)
 	HonorAssist.OptionsUi.shortKillMsgEnable:SetChecked(HonorAssistShortKillMessageToggle)
+	HonorAssist.OptionsUi.BattlegroundFramesEnable:SetChecked(HonorAssistBattlegroundFramesToggle)
+	HonorAssist.OptionsUi.BattlegroundFramesLockEnable:SetChecked(HonorAssistBattlegroundFramesLockToggle)
 end
 
 HonorAssist.OptionsUi.optionsFrame = CreateFrame("Frame", addonName .. "Options", InterfaceOptionsFramePanelContainer)
@@ -87,6 +89,45 @@ HonorAssist.OptionsUi.shortKillMsgEnableLabel:SetPoint("TOPLEFT", 42, -82)
 HonorAssist.OptionsUi.shortKillMsgEnableLabel:SetText(HonorAssist:GetTranslation("OPTIONS_ENABLE_SHORT_KILL_MSG"))
 
 -- End Short Kill Message CheckButton Section
+
+-- Start Battleground Frames Section
+
+HonorAssist.OptionsUi.BattlegroundFramesEnable = CreateFrame("CheckButton", nil, HonorAssist.OptionsUi.optionsFrame, "ChatConfigCheckButtonTemplate")
+HonorAssist.OptionsUi.BattlegroundFramesEnable:SetPoint("TOPLEFT", 16, -98)
+HonorAssist.OptionsUi.BattlegroundFramesEnable:SetScript("OnClick",
+	function()
+		HonorAssistBattlegroundFramesToggle = not HonorAssistBattlegroundFramesToggle
+		HonorAssist.OptionsUi.BattlegroundFramesEnable:SetChecked(HonorAssistBattlegroundFramesToggle)
+
+		if not HonorAssistBattlegroundFramesToggle then
+			HonorAssist:ClearAllBgFrames()
+		end
+	end
+);
+
+HonorAssist.OptionsUi.BattlegroundFramesEnableLabel = HonorAssist.OptionsUi.optionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+HonorAssist.OptionsUi.BattlegroundFramesEnableLabel:SetPoint("TOPLEFT", 42, -104)
+HonorAssist.OptionsUi.BattlegroundFramesEnableLabel:SetText(HonorAssist:GetTranslation("OPTIONS_ENABLE_BATTLEGROUND_FRAMES"))
+
+-- End Battleground Frames Section
+
+-- Start Battleground Frames Lock Section
+
+HonorAssist.OptionsUi.BattlegroundFramesLockEnable = CreateFrame("CheckButton", nil, HonorAssist.OptionsUi.optionsFrame, "ChatConfigCheckButtonTemplate")
+HonorAssist.OptionsUi.BattlegroundFramesLockEnable:SetPoint("TOPLEFT", 16, -120)
+HonorAssist.OptionsUi.BattlegroundFramesLockEnable:SetScript("OnClick",
+	function()
+		HonorAssistBattlegroundFramesLockToggle = not HonorAssistBattlegroundFramesLockToggle
+		HonorAssist.OptionsUi.BattlegroundFramesLockEnable:SetChecked(HonorAssistBattlegroundFramesLockToggle)
+		HonorAssist:LockBattlegroundFramesWindow()
+	end
+);
+
+HonorAssist.OptionsUi.BattlegroundFramesLockEnableLabel = HonorAssist.OptionsUi.optionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+HonorAssist.OptionsUi.BattlegroundFramesLockEnableLabel:SetPoint("TOPLEFT", 42, -126)
+HonorAssist.OptionsUi.BattlegroundFramesLockEnableLabel:SetText(HonorAssist:GetTranslation("OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"))
+
+-- End Battleground Frames Lock Section
 
 -- Start History Section
 

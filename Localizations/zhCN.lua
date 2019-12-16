@@ -25,6 +25,9 @@ local L = {
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "启用追踪器";
 	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "在铭牌上启用荣誉";
 	["OPTIONS_ENABLE_SHORT_KILL_MSG"] = "启用荣誉短消息";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "启用战场框架";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "锁定战场框架窗口";
+	["DEAD"] = "死";
 }
 
 HonorAssist.L = L

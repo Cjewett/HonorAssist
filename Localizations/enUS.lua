@@ -25,6 +25,9 @@ local L = {
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Enable Tracker";
 	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Enable Honor on Nameplate";
 	["OPTIONS_ENABLE_SHORT_KILL_MSG"] = "Enable Short Honor Message";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "Enable Battleground Frames";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "Lock Battleground Frames Window";
+	["DEAD"] = "DEAD";
 }
 
 HonorAssist.L = L
