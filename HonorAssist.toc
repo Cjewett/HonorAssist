@@ -1,7 +1,7 @@
 ## Interface: 11303
 ## Title: HonorAssist
 ## Author: Eulav, CptMerlot
-## Version: 0.9
+## Version: 0.9.1
 ## SavedVariablesPerCharacter: HonorAssistData, HonorAssistLogging, HonorAssistTrackerFramePositionX, HonorAssistTrackerFramePositionY, HonorAssistShowTrackerUi, HonorAssistNameplateToggle, HonorAssistShortKillMessageToggle, HonorAssistBattlegroundFramesPositionX, HonorAssistBattlegroundFramesPositionY, HonorAssistBattlegroundFramesToggle, HonorAssistBattlegroundFramesLockToggle
 
 # Localization
