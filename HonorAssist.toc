@@ -1,8 +1,8 @@
 ## Interface: 11303
 ## Title: HonorAssist
 ## Author: Eulav, CptMerlot
-## Version: 0.8.3
-## SavedVariablesPerCharacter: HonorAssistData, HonorAssistLogging, HonorAssistTrackerFramePositionX, HonorAssistTrackerFramePositionY, HonorAssistShowTrackerUi, HonorAssistNameplateToggle, HonorAssistShortKillMessageToggle
+## Version: 0.9
+## SavedVariablesPerCharacter: HonorAssistData, HonorAssistLogging, HonorAssistTrackerFramePositionX, HonorAssistTrackerFramePositionY, HonorAssistShowTrackerUi, HonorAssistNameplateToggle, HonorAssistShortKillMessageToggle, HonorAssistBattlegroundFramesPositionX, HonorAssistBattlegroundFramesPositionY, HonorAssistBattlegroundFramesToggle, HonorAssistBattlegroundFramesLockToggle
 
 # Localization
 Localizations\enUS.lua
@@ -35,7 +35,9 @@ HonorAssistToolTip.lua
 HonorAssistChatMessage.lua
 HonorAssistHistoryLoader.lua
 HonorAssistNameplate.lua
+BattlegroundFrames\HonorAssistBGFrames.lua
 
 # UI
 HonorAssistTrackerUi.lua
 HonorAssistOptionsUi.lua
+BattlegroundFrames\HonorAssistBGFramesUi.lua

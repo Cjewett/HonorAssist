@@ -25,6 +25,9 @@ local L = {
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Activer le traqueur";
 	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Activer l'honneur sur la plaque signalétique";
 	["OPTIONS_ENABLE_SHORT_KILL_MSG"] = "Activer le court message d'honneur";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "Activer les cadres de champ de bataille";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "Verrouiller la fenêtre des cadres de champ de bataille";
+	["DEAD"] = "décédé";
 }
 
 HonorAssist.L = L

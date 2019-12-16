@@ -25,6 +25,9 @@ local L = {
 	["OPTIONS_ENABLE_TRACKER_LABEL"] = "Ativar rastreador";
 	["OPTIONS_ENABLE_NAMEPLATE_LABEL"] = "Ativar honra na placa de identificação";
 	["OPTIONS_ENABLE_SHORT_KILL_MSG"] = "Ativar mensagem curta de honra";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "Ativar quadros de campo de batalha";
+	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "Janela Bloquear quadros de campos de batalha";
+	["DEAD"] = "MORTO";
 }
 
 HonorAssist.L = L
