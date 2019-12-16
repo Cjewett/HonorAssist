@@ -46,7 +46,7 @@ HonorAssistFrame:SetScript("OnEvent", function(self, event, ...)
 		local unit = ...
 		HonorAssist:ReportNewBgUnit(unit .. "target")
 		HonorAssist:UpdateBgFrameHealth(unit .. "target")
-		HonorAssist:UpdateBgFramePower(unit)
+		HonorAssist:UpdateBgFramePower(unit .. "target")
 	end
 
 	if event == "UPDATE_MOUSEOVER_UNIT" then
