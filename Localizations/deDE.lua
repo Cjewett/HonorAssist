@@ -28,6 +28,10 @@ local L = {
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "Aktiviere Battleground Frames";
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "Fenster Battleground Frames sperren";
 	["DEAD"] = "TOT";
+	["FLAG_PICK_UP"] = "(.*) hat die Flagge der (%w+) aufgenommen!";
+	["FLAG_RETURN"] = "Die Flagge der (%w+) wurde von (.+) zu ihrem Stützpunkt zurückgebracht!";
+	["FLAG_CAPTURED"] = "(.+) hat die Flagge der (%w+) errungen!";
+	["FLAG_DROPPED"] = "Die Flagge wurde fallengelassen.";
 }
 
 HonorAssist.L = L

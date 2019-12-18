@@ -28,6 +28,10 @@ local L = {
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "Включить рамки боя";
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "Окно Блокировка поля битвы";
 	["DEAD"] = "МЕРТВЫХ";
+	["FLAG_PICK_UP"] = "(.+) несет флаг (%w+)!";
+	["FLAG_RETURN"] = "(.+) возвращает на базу .лаг (%w+)!";
+	["FLAG_CAPTURED"] = "(.+) захватывает флаг (%w+)!";
+	["FLAG_DROPPED"] = "Флаг уронили!";
 }
 
 HonorAssist.L = L

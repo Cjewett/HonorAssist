@@ -28,6 +28,10 @@ local L = {
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "Abilita i frame di Battleground";
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "Blocca la finestra dei frame di Battleground";
 	["DEAD"] = "deceduto";
+	["FLAG_PICK_UP"] = "";
+	["FLAG_RETURN"] = "";
+	["FLAG_CAPTURED"] = "";
+	["FLAG_DROPPED"] = "";
 }
 
 HonorAssist.L = L

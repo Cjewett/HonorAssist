@@ -28,6 +28,10 @@ local L = {
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "Activer les cadres de champ de bataille";
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "Verrouiller la fenêtre des cadres de champ de bataille";
 	["DEAD"] = "décédé";
+	["FLAG_PICK_UP"] = "Le Drapeau (%w+) a été pris par (.+) !";
+	["FLAG_RETURN"] = "Le Drapeau (%w+) a été renvoyé à la base par (.+) !";
+	["FLAG_CAPTURED"] = "(.+) a capturé le drapeau (%w+) !";
+	["FLAG_DROPPED"] = "Le drapeau vient d'être laché!";
 }
 
 HonorAssist.L = L

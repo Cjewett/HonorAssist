@@ -28,6 +28,10 @@ local L = {
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "Ativar quadros de campo de batalha";
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "Janela Bloquear quadros de campos de batalha";
 	["DEAD"] = "MORTO";
+	["FLAG_PICK_UP"] = "(.+) pegou a Bandeira da ([%wç]+)!";
+	["FLAG_RETURN"] = "A Bandeira da ([%wç]+) foi devolvida à base por (.+)!";
+	["FLAG_CAPTURED"] = "(.+) capturou a bandeira da ([%wç]+)!";
+	["FLAG_DROPPED"] = "A bandeira foi derrubada!";
 }
 
 HonorAssist.L = L

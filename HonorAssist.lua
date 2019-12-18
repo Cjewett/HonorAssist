@@ -18,6 +18,14 @@ HonorAssistFrame:SetScript("OnEvent", function(self, event, ...)
 		HonorAssist:ProcessChatMsgCombatHonorGain(...)
 	end
 
+	if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
+		HonorAssist:UpdateBgFrameHordeFlagCarrier(...)
+	end
+
+	if event == "CHAT_MSG_BG_SYSTEM_HORDE" then
+		HonorAssist:UpdateBgFrameAllianceFlagCarrier(...)
+	end
+
 	if event == "UPDATE_BATTLEFIELD_SCORE" then
 		HonorAssist:UpdateBattlefieldScore()
 	end
@@ -158,6 +166,8 @@ function HonorAssist:UpdateBattlegroundState()
 		HonorAssistFrame:RegisterEvent("UNIT_TARGET")
 		HonorAssistFrame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 		HonorAssistFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
+		HonorAssistFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_ALLIANCE")
+		HonorAssistFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
 	else
 		isInBattleground = false
 		HonorAssistFrame:UnregisterEvent("UPDATE_BATTLEFIELD_SCORE")
@@ -166,6 +176,8 @@ function HonorAssist:UpdateBattlegroundState()
 		HonorAssistFrame:UnregisterEvent("UNIT_TARGET")
 		HonorAssistFrame:UnregisterEvent("UPDATE_MOUSEOVER_UNIT")
 		HonorAssistFrame:UnregisterEvent("PLAYER_TARGET_CHANGED")
+		HonorAssistFrame:UnregisterEvent("CHAT_MSG_BG_SYSTEM_ALLIANCE")
+		HonorAssistFrame:UnregisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
 		HonorAssist:ClearAllBgFrames()
 	end
 end

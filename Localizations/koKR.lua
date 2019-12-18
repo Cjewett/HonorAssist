@@ -28,6 +28,10 @@ local L = {
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "전장 프레임 사용";
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "전장 프레임 잠금 창";
 	["DEAD"] = "죽은";
+	["FLAG_PICK_UP"] = "(.+)|1이;가; (.+) 깃발을 손에 넣었습니다!";
+	["FLAG_RETURN"] = "(.+)|1이;가; (.+) 깃발을 되찾았습니다!";
+	["FLAG_CAPPED"] = "(.+)|1이;가; (.+) 깃발 쟁탈에 성공했습니다!";
+	["FLAG_DROPPED"] = "깃발을 떨어뜨렸습니다!";
 }
 
 HonorAssist.L = L

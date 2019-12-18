@@ -28,6 +28,10 @@ local L = {
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "启用战场框架";
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "锁定战场框架窗口";
 	["DEAD"] = "死";
+	["FLAG_PICK_UP"] = "(.+)的旗帜被(.+)拔起了！";
+	["FLAG_RETURN"] = "(.+)的旗帜被(.+)还到了它的基地中！";
+	["FLAG_CAPTURED"] = "(.+)夺取(.+)的旗帜！";
+	["FLAG_DROPPED"] = "旗帜被扔掉了！";
 }
 
 HonorAssist.L = L

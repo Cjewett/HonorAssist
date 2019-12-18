@@ -1,6 +1,11 @@
 local addonName, addonTable = ...
 HonorAssist = addonTable
 
+local playersCurrentFaction = nil
+local flagTexture = nil
+local hordeFlagTexture = "Interface/WorldStateFrame/HordeFlag"
+local allianceFlagTexture = "Interface/WorldStateFrame/AllianceFlag"
+
 function HonorAssist:LoadBGFramesUi()
 	if HonorAssistBattlegroundFramesPositionX == nil or HonorAssistBattlegroundFramesPositionY == nil then
 		HonorAssistBattlegroundFramesPositionX = 0
@@ -13,6 +18,15 @@ function HonorAssist:LoadBGFramesUi()
 
 	if HonorAssistBattlegroundFramesLockToggle == nil then
 		HonorAssistBattlegroundFramesLockToggle = false
+	end
+
+	local englishFaction, localizedFaction = UnitFactionGroup("Player")
+	playersCurrentFaction = englishFaction
+
+	if (englishFaction == "Horde") then
+		flagTexture = hordeFlagTexture
+	else
+		flagTexture = allianceFlagTexture
 	end
 
 	HonorAssist:SetBattlegroundFramePosition()
@@ -46,6 +60,7 @@ function HonorAssist:SetBattlegroundFramePosition()
 	end
 end
 
+HonorAssist.battlegroundFrames.warsongEnemyFlagCarrier = nil
 HonorAssist.battlegroundFrames.battlegroundFrame = {}
 HonorAssist.battlegroundFrames.battlegroundFrame.pool = {}
 HonorAssist.battlegroundFrames.battlegroundFrame.enemies = {}
@@ -108,15 +123,24 @@ function HonorAssist:CreateBgFrame()
 
 	bgFrameBtn.name = bgFrameBtn.healthBar:CreateFontString(nil, "ARTWORK")
 	bgFrameBtn.name:SetPoint("TOPLEFT", 5, 0)
-	bgFrameBtn.name:SetPoint("BOTTOMRIGHT")
+	bgFrameBtn.name:SetPoint("BOTTOMRIGHT", -80, 0)
 	bgFrameBtn.name:SetFont("Fonts/ARIALN.TTF", 12)
+	bgFrameBtn.name:SetMaxLines(1)
 	bgFrameBtn.name:SetJustifyH("LEFT")
 	bgFrameBtn.name:SetJustifyV("MIDDLE")
 	bgFrameBtn.name:SetTextColor(1, 1, 1)
 	bgFrameBtn.name:SetShadowColor(0, 0, 0, 1)
 	bgFrameBtn.name:SetShadowOffset(1, -1)
 
+	bgFrameBtn.flagTexture = bgFrameBtn.healthBar:CreateTexture(nil, "ARTWORK")
+	bgFrameBtn.flagTexture:SetTexture(flagTexture)
+	bgFrameBtn.flagTexture:SetWidth(30)
+	bgFrameBtn.flagTexture:SetPoint("TOPRIGHT", -35, 0)
+	bgFrameBtn.flagTexture:SetPoint("BOTTOMRIGHT")
+	bgFrameBtn.flagTexture:Hide()
+
 	bgFrameBtn.healthBarText = bgFrameBtn.healthBar:CreateFontString(nil, "ARTWORK")
+	bgFrameBtn.healthBarText:SetWidth(30)
 	bgFrameBtn.healthBarText:SetPoint("TOPRIGHT", -5, 0)
 	bgFrameBtn.healthBarText:SetPoint("BOTTOMRIGHT")
 	bgFrameBtn.healthBarText:SetFont("Fonts/ARIALN.TTF", 12)
@@ -160,6 +184,7 @@ function HonorAssist:ReleaseBgFrame(bgFrameBtn, GUID)
 	bgFrameBtn.isUsed = false
 	bgFrameBtn.guid = nil
 	HonorAssist:SortBgFrames()
+	bgFrameBtn.flagTexture:Hide()
 	bgFrameBtn:Hide()
 end
 
@@ -170,6 +195,7 @@ function HonorAssist:ClearAllBgFrames()
 			bgFrameBtn.isUsed = false
 			bgFrameBtn.guid = nil
 			HonorAssist:ClearBGFrameBtnMacros(bgFrameBtn)
+			bgFrameBtn.flagTexture:Hide()
 			bgFrameBtn:Hide()
 		end
 	end
@@ -199,12 +225,14 @@ function HonorAssist:UpdateHealth(bgFrameBtn, currentHealth, maxHealth)
 	local health = currentHealth / maxHealth
 	bgFrameBtn.healthBar:SetValue(health)
 	bgFrameBtn.healthBarText:SetText(HonorAssist:Round(health * 100, 0) .. "%")
+	HonorAssist:UpdateRange(bgFrameBtn, true)
 end
 
 function HonorAssist:UpdateDeath(bgFrameBtn)
 	bgFrameBtn.healthBar:SetValue(0)
 	bgFrameBtn.healthBarText:SetText(HonorAssist:GetTranslation("DEAD"))
 	bgFrameBtn.resourceBar:SetValue(0)
+	HonorAssist:UpdateRange(bgFrameBtn, false)
 end
 
 function HonorAssist:UpdateHealthColor(bgFrameBtn, classFileName)
@@ -214,10 +242,31 @@ end
 
 function HonorAssist:UpdateResource(bgFrameBtn, currentResource, maxResource)
 	bgFrameBtn.resourceBar:SetValue(currentResource / maxResource)
+	HonorAssist:UpdateRange(bgFrameBtn, true)
 end
 
 function HonorAssist:UpdateResourceColor(bgFrameBtn, altR, altG, altB)
 	bgFrameBtn.resourceBar:SetStatusBarColor(altR, altG, altB)
+end
+
+function HonorAssist:ActivateWarsongFlagCarrier(bgFrameBtn)
+	-- Shouldn't be possible but do this just incase. 
+	if HonorAssist.battlegroundFrames.warsongEnemyFlagCarrier ~= nil then
+		HonorAssist.battlegroundFrames.warsongEnemyFlagCarrier.flagTexture:Hide()
+		HonorAssist.battlegroundFrames.warsongEnemyFlagCarrier = nil
+	end
+
+	bgFrameBtn.flagTexture:Show()
+	HonorAssist.battlegroundFrames.warsongEnemyFlagCarrier = bgFrameBtn
+end
+
+function HonorAssist:DeactivateWarsongFlagCarrier()
+	if HonorAssist.battlegroundFrames.warsongEnemyFlagCarrier == nil then
+		return
+	end
+
+	HonorAssist.battlegroundFrames.warsongEnemyFlagCarrier.flagTexture:Hide()
+	HonorAssist.battlegroundFrames.warsongEnemyFlagCarrier = nil
 end
 
 function HonorAssist:UpdateRange(bgFrameBtn, isInRange)

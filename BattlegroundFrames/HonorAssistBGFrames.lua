@@ -200,6 +200,72 @@ function HonorAssist:UpdateBgFramePower(unitId)
 	HonorAssist:UpdateResourceColor(bgFrameBtn, info.r, info.g, info.b)
 end
 
+function HonorAssist:UpdateBgFrameAllianceFlagCarrier(chatMsg)
+	HonorAssist:UpdateBgFrameFlagCarrier(chatMsg, "Alliance")
+end
+
+function HonorAssist:UpdateBgFrameHordeFlagCarrier(chatMsg)
+	HonorAssist:UpdateBgFrameFlagCarrier(chatMsg, "Horde")
+end
+
+function HonorAssist:UpdateBgFrameNeutralFlagCarrier(chatMsg)
+	HonorAssist:UpdateBgFrameFlagCarrier(chatMsg, "Neutral")
+end
+
+function HonorAssist:UpdateBgFrameFlagCarrier(chatMsg)
+	-- If Italian we don't have translations yet, so return. If you can do Italian traslations and want to help us solve this problem please reach out on Github or Curseforge.
+	if (GetLocale() == "itIT") then
+		return
+	end
+
+	if string.match(chatMsg, HonorAssist:GetTranslation("FLAG_PICK_UP")) then
+		local faction, player = nil
+		if (GetLocale() == "deDE" or GetLocale() == "koKR") then
+			player, faction = string.match(chatMsg, HonorAssist:GetTranslation("FLAG_PICK_UP"))
+		else
+			faction, player = string.match(chatMsg, HonorAssist:GetTranslation("FLAG_PICK_UP"))
+		end
+
+		if (faction ~= playersCurrentFaction) then
+			return
+		end
+
+		-- Get full name including realm.
+		local fullName, name, realm = HonorAssist:GetRealmName(player)
+		local isAlreadyEnemy, bgFrameBtn = HonorAssist:IsAlreadyEnemy(fullName)
+
+		-- We have not discovered this player yet. Ignore.
+		if not isAlreadyEnemy then
+			return
+		end
+
+		HonorAssist:ActivateWarsongFlagCarrier(bgFrameBtn)
+		return
+	end
+
+	if string.match(chatMsg, HonorAssist:GetTranslation("FLAG_RETURN")) then
+		local _, _, player, faction = nil
+		if (GetLocale() == "ruRU") then
+			_, _, player, faction = string.find(chatMsg, HonorAssist:GetTranslation("FLAG_RETURN"))
+		else
+			_, _, faction, player = string.find(chatMsg, HonorAssist:GetTranslation("FLAG_RETURN"))
+		end
+
+		if (faction ~= playersCurrentFaction) then
+			return
+		end
+
+		-- We don't care who had the flag. We just care that it was returned.
+		HonorAssist:DeactivateWarsongFlagCarrier()
+		return
+	end
+
+	if string.match(chatMsg, HonorAssist:GetTranslation("FLAG_CAPTURED")) then
+		HonorAssist:DeactivateWarsongFlagCarrier()
+		return
+	end
+end
+
 -- Not used
 function HonorAssist:UpdateRangeByUnitId(unitId)
 	if (not UnitIsPlayer(unitId)) then

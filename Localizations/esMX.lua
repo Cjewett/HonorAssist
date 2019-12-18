@@ -28,6 +28,10 @@ local L = {
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES"] = "Habilitar marcos de campo de batalla";
 	["OPTIONS_ENABLE_BATTLEGROUND_FRAMES_LOCK"] = "Bloquear ventana de marcos de campo de batalla";
 	["DEAD"] = "MUERTO";
+	["FLAG_PICK_UP"] = "¡(.+) ha cogido la bandera de la (%w+)!";
+	["FLAG_RETURN"] = "¡(.+) ha devuelto la bandera de la (%w+) a su base!";
+	["FLAG_CAPTURED"] = "¡(.+) ha capturado la bandera de la (%w+)!";
+	["FLAG_DROPPED"] = "¡Ha caído la bandera!";
 }
 
 HonorAssist.L = L
