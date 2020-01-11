@@ -168,6 +168,7 @@ function HonorAssist:UpdateBattlegroundState()
 		HonorAssistFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 		HonorAssistFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_ALLIANCE")
 		HonorAssistFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
+		HonorAssist:ShowBattlegroundFramesWindow()
 	else
 		isInBattleground = false
 		HonorAssistFrame:UnregisterEvent("UPDATE_BATTLEFIELD_SCORE")
@@ -179,6 +180,7 @@ function HonorAssist:UpdateBattlegroundState()
 		HonorAssistFrame:UnregisterEvent("CHAT_MSG_BG_SYSTEM_ALLIANCE")
 		HonorAssistFrame:UnregisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
 		HonorAssist:ClearAllBgFrames()
+		HonorAssist:HideBattlegroundFramesWindow()
 	end
 end
 

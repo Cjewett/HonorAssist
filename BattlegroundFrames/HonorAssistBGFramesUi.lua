@@ -69,6 +69,14 @@ function HonorAssist:LockBattlegroundFramesWindow()
 	HonorAssist.battlegroundFrames:SetMovable(not HonorAssistBattlegroundFramesLockToggle)
 end
 
+function HonorAssist:ShowBattlegroundFramesWindow()
+	HonorAssist.battlegroundFrames:Show()
+end
+
+function HonorAssist:HideBattlegroundFramesWindow()
+	HonorAssist.battlegroundFrames:Hide()
+end
+
 function HonorAssist:CreateBgFrame()
 	local bgFrameBtn = HonorAssist:GetFreeBgFrameBtn()
 
