@@ -44,9 +44,15 @@ function HonorAssist:CreateHonorableKillMessage(estimatedHonorGained, playerKill
 	local chatInfo = ChatTypeInfo["COMBAT_HONOR_GAIN"]
 
 	if not HonorAssistShortKillMessageToggle then
-		text = HonorAssist:GetTranslation("YOU_HAVE_KILLED") .. ' ' .. playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. ' ' .. HonorAssist:GetTranslation(timeText) .. '. '
-			.. HonorAssist:GetTranslation("THIS_KILL_GRANTED") .. ' ' .. percentage * 100 .. '% ' .. HonorAssist:GetTranslation("VALUE_FOR") .. ' |cFF00ccff' .. realisticHonor .. ' ' 
-			.. HonorAssist:GetTranslation("HONOR"):lower() .. '|cFF' .. HonorAssist:RGBPercToHex(chatInfo.r, chatInfo.g, chatInfo.b) .. ' ' .. string.match(text, "(%(.+)") .. '.'
+		if (GetLocale() == "deDE") then
+			text = HonorAssist:GetTranslation("YOU_HAVE_KILLED") .. ' ' .. playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. ' ' .. HonorAssist:GetTranslation(timeText) .. '. '
+				.. HonorAssist:GetTranslation("THIS_KILL_GRANTED") .. ' ' .. percentage * 100 .. '% ' .. HonorAssist:GetTranslation("VALUE_FOR") .. ' |cFF00ccff' .. realisticHonor .. ' ' 
+				.. HonorAssist:GetTranslation("HONOR") .. '|cFF' .. HonorAssist:RGBPercToHex(chatInfo.r, chatInfo.g, chatInfo.b) .. ' ' .. string.match(text, "(%(.+)") .. '.'
+		else
+			text = HonorAssist:GetTranslation("YOU_HAVE_KILLED") .. ' ' .. playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. ' ' .. HonorAssist:GetTranslation(timeText) .. '. '
+				.. HonorAssist:GetTranslation("THIS_KILL_GRANTED") .. ' ' .. percentage * 100 .. '% ' .. HonorAssist:GetTranslation("VALUE_FOR") .. ' |cFF00ccff' .. realisticHonor .. ' ' 
+				.. HonorAssist:GetTranslation("HONOR"):lower() .. '|cFF' .. HonorAssist:RGBPercToHex(chatInfo.r, chatInfo.g, chatInfo.b) .. ' ' .. string.match(text, "(%(.+)") .. '.'
+		end
 	else
 		text = playerKilled .. ' (' .. playerRank .. ') ' .. timesKilled .. 'x: |cFF00ccff' .. realisticHonor .. ' ' .. HonorAssist:GetTranslation("HONOR"):lower()
 	end
