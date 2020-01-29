@@ -100,11 +100,11 @@ function HonorAssist:GetResetDayWeekday()
 end
 
 function HonorAssist:CalculateRealisticHonor(timesKilled, estimatedHonorGained)
-	if timesKilled >= 5 then
+	if timesKilled >= 10 then
 		return 0, 0
 	end
 
-	local percentage = 1 - (0.25 * timesKilled)
+	local percentage = 1 - (0.1 * timesKilled)
 	local realisticHonor = estimatedHonorGained * percentage
 	return percentage, realisticHonor
 end
